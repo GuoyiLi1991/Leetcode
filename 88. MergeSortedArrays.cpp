@@ -16,7 +16,7 @@ public:
             if (p1 >-1 && p2>-1)
             {
                 nums1[i] = nums1[p1]>nums2[p2]? nums1[p1--]:nums2[p2--];
-                continue;
+                continue;  // Important to be here! A better way is to consider CORNER CASES first!!!
             }
             if (p1 == -1)
             {
