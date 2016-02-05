@@ -37,6 +37,14 @@ class Solution {
         
         return l3->next;
     }
+    ListNode* divide_and_conquer(vector<ListNode*>&lists, int i, int j)
+    {
+        if (i == j)
+            return lists[i];
+        if (i == j-1)
+            return merge2Lists(lists[i], lists[j]);
+        return merge2Lists(divide_and_conquer(lists, i, (i+j)/2), divide_and_conquer(lists, (i+j)/2+1, j));
+    }
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         ListNode *ret = NULL;
@@ -45,7 +53,7 @@ public:
     
         while (n>1)
         {
-            //********  Divide and conquer  ************//
+            //********  Divide and conquer  O(NlogN) ************//
             int k = (n+1)/2;
             for (int i = 0; i < n/2; i++)
             {
@@ -54,7 +62,34 @@ public:
             n = k;
         }
         
-        return lists[0];
+        
+        return lists[0];//divide_and_conquer(lists, 0, lists.size()-1);
         
     }
 };
+
+
+/*   Using Map 
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        map<int,int> order;
+        for(auto &list:lists){
+            while(list!=NULL){
+                order[list->val]++;
+                list=list->next;
+            }
+        }
+        ListNode head(0);
+        ListNode* tmp=&head;
+        for(auto &num:order){
+            while(num.second--){
+                tmp->next=new ListNode(num.first);
+                tmp=tmp->next;
+            }
+        }
+        return head.next;
+    }
+};
+
+*/
