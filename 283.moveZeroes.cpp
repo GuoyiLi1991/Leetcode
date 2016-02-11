@@ -18,3 +18,26 @@ public:
         
     }
 };
+
+
+//more consise - use two pointers
+// remember the end of original array
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n = nums.size();
+        if (n<2) return;
+        
+        int l =0, r = n-1;
+        for (int i = 0; i<n && l<r; )
+        {
+            if (nums[i] == 0)
+            {
+                nums.erase(nums.begin()+i);
+                nums.push_back(0); 
+                r--;
+            }
+            else ++i;
+        }
+    }
+};
