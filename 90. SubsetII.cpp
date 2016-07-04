@@ -5,6 +5,7 @@ class Solution {
         
         for (int i = pos; i<nums.size(); i++)
         {
+            // deal with duplication
             if (i>pos && nums[i-1] == nums[i])
                 continue;
             list.push_back(nums[i]);
