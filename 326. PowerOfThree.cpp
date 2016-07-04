@@ -7,7 +7,7 @@ public:
         // if (n % 3 !=0) return false;
         // isPowerOfThree(n/3);
         
-        return (n>0 && pow(3,10) % n == 0);
+        return (n>0 && (long long)pow(3,20) % n == 0);
         
     }
 };

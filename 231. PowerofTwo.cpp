@@ -17,3 +17,22 @@ public:
     }
 };
 
+
+//Another bit manipulation: allows one and only one 1
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {  
+        bool result = false;
+        while (n) {
+            if ((n & 1) ==1) {
+                if (result)
+                    return false;
+                else
+                    result = true;
+            }
+            n = n >>1;
+            
+        }
+        return result;
+    }
+};
