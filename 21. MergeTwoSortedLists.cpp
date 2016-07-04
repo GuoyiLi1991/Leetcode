@@ -34,27 +34,18 @@ public:
     }
 };
 
-//////////// Recursion 8ms////////////////
+/* Recursion 8ms
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         if (!l1) return l2;
         if (!l2) return l1;
-        if (l1->val < l2->val) { 
-            l1 -> next = mergeTwoLists(l1->next,l2); 
-            return l1; 
-        }
-        else { 
-            l2 -> next = mergeTwoLists(l2->next,l1); 
-            // Here, order does not matter to get the correct answer. However, it's
-            // faster if we put l2->next first, as it will always lead the if fork to 
-            // the first part
-            return l2; 
-        }
+        if (l1->val < l2->val) { l1 -> next = mergeTwoLists(l1->next,l2); return l1; }
+        else { l2 -> next = mergeTwoLists(l2->next,l1); return l2; }
     }
 };
 
-//////////////////////////////////////////
+*/
 
 /* using map  12ms
 ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {

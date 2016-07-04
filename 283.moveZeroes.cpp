@@ -29,15 +29,15 @@ public:
         if (n<2) return;
         
         int l =0, r = n-1;
-        while (l<n && l<r)
+        for (int i = 0; i<n && l<r; )
         {
-            if (nums[l] == 0)
+            if (nums[i] == 0)
             {
-                nums.erase(nums.begin()+l);
+                nums.erase(nums.begin()+i);
                 nums.push_back(0); 
                 r--;
             }
-            else ++l;
+            else ++i;
         }
     }
 };

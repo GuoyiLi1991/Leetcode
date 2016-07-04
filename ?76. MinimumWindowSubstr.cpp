@@ -1,40 +1,37 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int start = 0, end = 0; //window
-        int begin = 0, minLength = INT_MAX; //result
-        
-        vector<int> mp(128,0);
-        for (char c:t)
-            mp[c]++;
+        int map[128] = {};
+        for (char c:t) 
+            map[c]++;
             
         int counter = t.size();
-        while (end < s.size())
+        int begin = 0, end = 0; //two pointers in s
+        int minLength = INT_MAX, head = 0;
+        while(end < s.size())
         {
-            if (mp[s[end]] >0) //s[end] is also in t
-                counter--;
-            mp[s[end]]--;
-            end++;
-            
-            while(counter ==0) //t is completely matched
+            if (map[s[end++]]-- > 0)
             {
-                //save the current best first
-                if (end-start < minLength)
+                counter--; //found one more char in t that is contained
+                // map[s[end]]--;
+                // end++;
+            }
+            while(counter == 0) //valid
+            {
+                if (begin+minLength > end)
                 {
-                    minLength = end-start;
-                    begin = start;
+                    head = begin;
+                    minLength = end - begin;
                 }
                 
-                //try to minimize the window
-                if (mp[s[start]] == 0) //lost a target char in the window
-                    counter++; //make it invalid, so counter!=0, try end++ again;
-                mp[s[start]]++;
-                start++;
+                if (map[s[begin++]]++ == 0)
+                {
+                    counter++; //invalid, need to progress right ptr to find this char
+                    // map[s[begin]]++;
+                    // begin++;
+                }
             }
         }
-        
-        if (minLength == INT_MAX) //never got a valid window
-            return "";
-        return s.substr(begin, minLength);
+        return (minLength == INT_MAX)? "":s.substr(head, minLength);
     }
 };

@@ -8,8 +8,8 @@ public:
             return;
         }
         
-        int p1 = m-1;  //pointer in num1
-        int p2 = n-1;   //pointer in num2
+        int p1 = m-1;
+        int p2 = n-1;
         for (int i = m+n-1; i>=0; --i)
         {
             
@@ -18,12 +18,12 @@ public:
                 nums1[i] = nums1[p1]>nums2[p2]? nums1[p1--]:nums2[p2--];
                 continue;  // Important to be here! A better way is to consider CORNER CASES first!!!
             }
-            if (p1 == -1) //num1 over
+            if (p1 == -1)
             {
                 nums1[i] = nums2[p2--];
                 continue;
             }
-            if (p2 == -1)  //num2 over
+            if (p2 == -1)
                 return;
         }
         
