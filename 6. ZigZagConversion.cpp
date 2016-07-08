@@ -41,3 +41,37 @@ public:
         return res;
     }
 };
+
+///////////////////////////////////////////////////
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        int n = s.size();
+        if (n <= numRows || numRows == 1)
+            return s;
+        
+        string result;
+        vector<string> lines(numRows, "");
+        
+        int move = 0;
+        int row = 0;
+        
+        for (char c:s) {  
+            lines[row] += c;
+            
+            //update line number i
+            if (row == 0)
+                move = 1; //move down
+            else if (row == numRows-1)
+                move = -1; //move up
+                
+            row += move;
+        }
+        
+        for (int i = 0; i< numRows; ++i) {
+            result += lines[i];
+        }
+
+        return result;
+    }
+};
