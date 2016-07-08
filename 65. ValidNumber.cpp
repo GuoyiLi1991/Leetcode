@@ -48,3 +48,54 @@ public:
 
     }
 };
+
+
+
+
+///////////////////
+class Solution {
+public:
+    bool isNumber(string s) {
+        bool meetSign = false;
+        bool hasResult = false;
+        bool meetPoint = false;
+        bool meetE = false;
+
+        while (s.size() && s[0] == ' ')
+            s = s.substr(1);
+        while(s.size() && s[s.size()-1] == ' ')
+            s = s.substr(0, s.size()-1);
+        
+            
+        for (char c:s) {
+            if (!isdigit(c)) {
+                if (isspace(c))
+                    return false;
+                if (c == '.') {
+                    if (meetPoint ||meetE) //two digital points
+                        return false;
+                    meetPoint = true;
+                }
+                if (c == '+' || c == '-') {
+                    if (meetSign || meetPoint || hasResult) //more than one signs
+                        return false;
+                    meetSign = true;
+                }
+                if  (isalpha(c)) {
+                    if (c == 'e') {
+                        if (meetE || !hasResult)
+                            return false;
+                        meetE = true;
+                        meetSign = false; 
+                        meetPoint = false;
+                        hasResult = false; //need to at least wait for one more digit
+                    }
+                    else return false;
+                }
+                
+            }
+            else hasResult  = true;
+        }
+        return hasResult;
+    }
+};
