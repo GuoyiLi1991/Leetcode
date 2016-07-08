@@ -38,3 +38,41 @@ public:
         return sign*num;
     }
 };
+
+////////////////////////////////
+class Solution {
+public:
+    int myAtoi(string str) {
+        long res = 0;
+        bool flag = false; //whether already met a sign
+        bool hasResult = false;
+        int sign = 1;
+        
+        for (char c:str) {
+            if (!isdigit(c)) {
+                if (isspace(c) && !hasResult && !flag)
+                    continue;
+                if (c == '-' || c == '+') {
+                    if (flag) //second time
+                        return res * sign;  //illegal
+                    flag = true;
+                    if (c == '-') 
+                        sign = -1;
+                    continue;
+                }
+                return res * sign;
+            }
+            
+            int digit = c - '0';
+            res = res * 10 + digit;
+            if (res >= INT_MAX) {
+                if (sign > 0)
+                    return INT_MAX;
+                else return (res == INT_MAX)? -INT_MAX:INT_MIN;
+            }
+
+            hasResult = true;
+        }
+        return res* sign;
+    }
+};
