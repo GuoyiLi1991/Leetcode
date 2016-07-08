@@ -16,7 +16,34 @@ public:
 				return false;
         }
     	*/ 
-    	
+
+        return true;
+    }
+};
+
+////////////// Without Extra Space //////////////////
+/* Pay attention to double pow(double base, double power); */
+class Solution {
+public:
+    bool isPalindrome(int x) {
+         if (x < 0 || x >= INT_MAX)
+             return false;
+            
+        int n = 0; // number of digits
+        int v = x;
+        while (v) {
+            n++;
+            v /=10;
+        }
+        //cout << n;
+        
+        v = x;
+        while (n > 1) {
+            if (v/int(pow(10, n-1)) != v % 10)
+                return false;
+            v = (v/10) % int(pow(10, n-2));
+            n -= 2;
+        }
         return true;
     }
 };
