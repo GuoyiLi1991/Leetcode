@@ -30,10 +30,10 @@ public:
         for (int i = n-1; i >= 0 ; i--)
         {
             num += (str[i]-'0') * pow(10, n-1-i);
-
+            if (num < 0)  //overflow
+                return sign>0? 2147483647 : -2147483648;
         }
-        if (num < 0)  //overflow
-            return sign>0? 2147483647 : -2147483648;
+        
         
         return sign*num;
     }
