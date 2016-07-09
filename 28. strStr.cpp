@@ -22,3 +22,34 @@ public:
         
     }
 };
+
+
+///////////////////////////
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int m = haystack.size(), n = needle.size();
+        if (m < n) 
+            return -1;
+        if (n == 0)
+            return 0;
+            
+        int res = -1;
+        int l = 0, r = 0; //two pointers in haystack
+        int p = 0;
+        while (r < m && p < n) {
+            if (haystack[r] == needle[p]) {
+                r++; p++;
+            }
+            else {
+                l++;
+                r = l;
+                p = 0;
+            }
+        }
+        
+        if (p == n) return l;
+        else return -1;
+        
+    }
+};
