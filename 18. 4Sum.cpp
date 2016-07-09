@@ -30,9 +30,9 @@ public:
                     else 
                         l++;
                 }
-                while (nums[j] == nums[j+1]) j++;
+                while (j < n - 2 && nums[j] == nums[j+1]) j++;
             }
-            while (nums[i] == nums[i+1]) i++;
+            while (i < n -3 && nums[i] == nums[i+1]) i++;
         }
         return res;
     }
