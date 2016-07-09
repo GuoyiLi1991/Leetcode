@@ -14,3 +14,19 @@ public:
         
     }
 };
+
+////////////////////////////////
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int n = nums.size();
+        int l = 0;
+        for (int i: nums) {
+            if (i != val)
+                nums[l++] = i;
+        }
+        nums.resize(l);
+        
+        return l;
+    }
+};
