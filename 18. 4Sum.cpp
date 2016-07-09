@@ -15,16 +15,15 @@ public:
                     int sum = nums[i] + nums[j] + nums [l] + nums[r];
                     if (sum == target)
                     {
-                        //found one solution
-                        vector<int> quard;
-                        quard.push_back(nums[i]);
-                        quard.push_back(nums[j]);
-                        quard.push_back(nums[l]);
-                        quard.push_back(nums[r]);
-                        res.push_back(quard);
-                        l++; r--;
-                        while (nums[l] == nums[l-1]) l++;
-                        while (nums[r] == nums[r+1]) r--;
+                        //save to res
+                        vector<int> quad{nums[i], nums[j], nums[l], nums[r]};
+                        res.push_back(quad);
+                        //avoid duplication
+                        while (l < r && nums[l] == nums[l+1]) l++;
+                        while (l < r && nums[r] == nums[r-1]) r--;
+                        //move on
+                        l++;
+                        r--;
                     }
                     else if (sum > target)
                         r--;
