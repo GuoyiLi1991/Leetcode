@@ -89,3 +89,82 @@ public:
 };
 
 
+
+////////////////////Second time///////////////////
+////////////Really slow///////////////////////////
+class Solution {
+    string add(string num1, string num2) {
+        if (num1 == "")
+            return num2;
+        if (num2 == "")
+            return num1;
+            
+        int len = max(num1.size(), num2.size());
+        while (num1.size() < len)
+            num1 = "0" + num1;
+        while (num2.size() < len)
+            num2 = "0" + num2;
+            
+        string res;
+        int c = 0; //carry
+        for (int i = len-1; i >= 0; i--) {
+            int d = (num1[i] -'0') + (num2[i] - '0') + c;
+            c = d/10;
+            d = d%10;
+            res = to_string(d) + res;
+        }
+        
+        if (c) 
+            res = "1" + res;
+            
+        return res;
+    }
+    
+    string multiply1(string num, char c) {
+        if (c == '0'){
+            return "0";
+        }
+        if (c == '1')
+            return num;
+            
+        string res;
+        int n = num.size();
+        for (int i = n - 1; i >= 0; i--) {
+            if (num[i] == '0')
+                continue;
+                
+            int m = (num[i] - '0') * (c - '0');
+            string zeros(n - 1 -i, '0');
+            
+            res = add(to_string(m)+zeros, res);
+        }
+        return res;
+    }
+public:
+    string multiply(string num1, string num2) {
+        string res = "0";
+        
+        if (num1.size() < num2.size())
+            return multiply(num2, num1);
+            
+        int n = num2.size();
+        vector<string> ht(10, "");
+        ht[0] = "0";
+        ht[1] = num1;
+        
+        for (int i = n-1; i >= 0; i--) {
+            string zeros(n-1-i, '0');
+            string m; //multiplication of current digit in num2, with num1
+            
+            char c = num2[i];
+            if (ht[c - '0'] == "") {
+                ht[c - '0'] = multiply1(num1, c);
+            }
+            
+            m = ht[c - '0'] + zeros;
+            res = add(res, m);
+        }
+        return res;
+    }
+};
+

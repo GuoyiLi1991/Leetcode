@@ -22,3 +22,38 @@ public:
         return res;
     }
 };
+
+/////////////////////////////
+class Solution {
+    string next(string s) { //tells the next string of s
+        string res;
+        char c = s[0];
+        int cnt = 1;
+        for (int i = 1; i < s.size(); i++) {
+            char cur = s[i];
+            if (cur == c) {
+                cnt++;
+                continue;
+            }
+            else {
+                res += to_string(cnt) + c;
+                c = cur;
+                cnt = 1;
+            }
+        }
+        res += to_string(cnt) + c;
+        return res;
+    }
+public:
+    string countAndSay(int n) {
+        string res;
+        if (n == 1)
+            return "1";
+        
+        string s = "1";
+        for (int i = 2; i <= n; i++) {
+            s = next(s);
+        }
+        return s;
+    }
+};
