@@ -27,9 +27,13 @@ public:
         //insert multiset to vector of vector
         for (auto msetkey:dic)
         {
-            multiset<string> mset = msetkey.second;
-            vector<string> anagram(mset.begin(), mset.end());
-            ret.push_back(anagram);
+            // multiset<string> mset = msetkey.second;
+            // vector<string> anagram(mset.begin(), mset.end());
+            // ret.push_back(anagram);
+
+            ret.push_back(vector<string>(msetkey.second.begin(), msetkey.second.end()));
         }
+
+        return ret;
     }
 };
