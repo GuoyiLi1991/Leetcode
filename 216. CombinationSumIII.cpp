@@ -11,11 +11,9 @@ class Solution {
         
         for (int i = level; i <= 9; ++i)
         {
-            n -= i;
             list.push_back(i);
-            backtracking(result, list, k, n, i+1);
+            backtracking(result, list, k, n - i, i+1);
             list.pop_back();
-            n += i;
         }
     }
 public:
