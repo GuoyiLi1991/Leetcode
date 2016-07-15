@@ -45,7 +45,7 @@ class Solution {
     }
 public:
 
-    /******** mine *************/
+    /******** mine 100 ms*************/
     string multiply2(string num1, string num2) {  
         if (num1 =="0" || num2 == "0")
             return "0";
@@ -65,7 +65,7 @@ public:
     }
     
     
-    /************ good solution ***********/
+    /************ good solution 8ms***********/
     string multiply(string num1, string num2) {  
     string sum(num1.size() + num2.size(), '0');
 
@@ -91,7 +91,7 @@ public:
 
 
 ////////////////////Second time///////////////////
-////////////Really slow///////////////////////////
+////////////Really slow 778ms///////////////////////////
 class Solution {
     string add(string num1, string num2) {
         if (num1 == "")
