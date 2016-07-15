@@ -32,36 +32,32 @@ public:
     }
 };
 
-// could be faster if change unordered_map to ht[10]
+/////////////// My rewritten version /////////////////
 class Solution {
-   // void dfs(vector<string>&ret, string s, const string &digits, unordered_map<char, string> ht, int pos)
-    void dfs(vector<string>&ret, string s, const string &digits, string ht[], int pos)
-    {
-        if (digits.size() == 0 || digits.size() == s.size())
-        {
-            ret.push_back(s);
+    string map[10] = {"","","abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv","wxyz"};
+    void combination(vector<string> & res, string &str, string& digits, int pos) {
+        if (str.size() == digits.size()) {
+            res.push_back(str);
             return;
         }
         
-        char key =  digits[pos];
-        string charset =  ht[key-'0'];
-        for (int i = 0; i<charset.size(); i++)
-        {
-            s += charset[i];
-            dfs(ret, s, digits, ht, pos+1);
-            s.pop_back();
-        }
+        int num = digits[pos] - '0';
+        string letters = map[num];
+            
+        for (int j = 0; j < letters.size(); j++) {
+            str.push_back(letters[j]);
+            combination(res, str, digits, pos + 1);
+            str.pop_back();
+         }
     }
 public:
     vector<string> letterCombinations(string digits) {
-        vector<string> ret;
-        int n = digits.size();
-        if (n == 0) return ret;
-        
-        string ht[10] = {"", "", "abc","def","ghi",
-                    "jkl","mno","pqrs","tuv","wxyz"};
-            
-        dfs(ret, "", digits, ht, 0);
-        return ret;
+        vector<string> res;
+        if (digits.size() == 0 || digits.find('1') != string::npos || digits.find('0') != string::npos) //contains 0 or 1
+            return res;
+        string str;
+
+        combination(res, str, digits, 0);
+        return res;
     }
 };
