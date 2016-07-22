@@ -41,13 +41,13 @@ public:
  * };
  */
 class Solution {
-    TreeNode *DFS(vector<int> &nums, int start, int end) {
+    TreeNode *sortedArrayToBST(vector<int> &nums, int start, int end) {
         if (start > end)
             return NULL;
         int mid = start + (end - start) / 2;
         TreeNode *root = new TreeNode(nums[mid]);
-        root->left = DFS(nums, start, mid - 1);
-        root->right = DFS(nums, mid + 1, end);
+        root->left = sortedArrayToBST(nums, start, mid - 1);
+        root->right = sortedArrayToBST(nums, mid + 1, end);
         return root;
     }
 public:
