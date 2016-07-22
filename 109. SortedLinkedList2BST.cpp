@@ -1,3 +1,4 @@
+// directly converted from 108.
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -16,6 +17,35 @@
  * };
  */
 class Solution {
+    TreeNode *sortedListToBST(ListNode*head, ListNode *tail) {
+        if (head == tail) //empty
+            return NULL;
+        if (head->next == tail) //one node
+            return new TreeNode(head->val);
+        
+        //find mid point
+        ListNode *fast = head;
+        ListNode *slow = head;
+        while (fast != tail && fast->next != tail) {
+            slow = slow ->next;
+            fast = fast->next->next;
+        }
+        
+        //now slow is the mid point
+        TreeNode *root = new TreeNode(slow->val);
+        root->left = sortedListToBST(head, slow);
+        root->right = sortedListToBST(slow->next, tail);
+        
+        return root;
+    }
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        return sortedListToBST(head, NULL);
+    }
+};
+
+////////////////////////////////////////////
+class Solution {
     // ListNode *list;
     int getLength(ListNode *head) {
         int len = 0;
@@ -29,7 +59,7 @@ class Solution {
         if (n == 0)
             return NULL;
         TreeNode *node = new TreeNode(0);
-        
+
         node->left = generate(n/2, head);
         node->val = head->val;
         head = head->next;
