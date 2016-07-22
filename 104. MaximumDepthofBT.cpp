@@ -29,7 +29,9 @@ class Solution {
             //pop out all the cur level node
             while(cnt-- >0)
             {
-                left = q.front()->left;
+                // Pay attention: here left and right can 
+                // be the children of different nodes...
+                left = q.front()->left;  
                 if (left) q.push(left);
                 right = q.front()->right;
                 if(right) q.push(right);
