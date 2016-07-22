@@ -27,3 +27,28 @@ public:
         
     }
 };
+
+//////////////////////////
+// Combination of max depth and level order(I).
+// beat 90%
+class Solution {
+    int maxDepth(TreeNode * root) {
+        if (!root)
+            return 0;
+        return 1 + max(maxDepth(root->left), maxDepth(root->right));
+    }
+    void DFS(vector<vector<int>> & res, TreeNode *root, int level) {
+        if (!root)
+            return;
+        res[level - 1].push_back(root->val);
+        DFS(res, root->left, level - 1);
+        DFS(res, root->right, level - 1);
+    }
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        int d = maxDepth(root);
+        vector<vector<int>> res(d, vector<int>{});
+        DFS(res, root, d);
+        return res;
+    }
+};
