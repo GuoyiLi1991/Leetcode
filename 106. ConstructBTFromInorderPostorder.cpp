@@ -35,3 +35,42 @@ public:
         return build(inorder, 0, n-1, postorder, 0, n-1);
     }
 };
+
+
+/////////////////////////////
+// Converted directorly from 105. 
+// choose last element in postorder, find pos in inorder....
+// 56ms
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    TreeNode* helper(vector<int>& postorder, int i, int j, vector<int>& inorder, int ii, int jj) {
+        //illegal
+        if (i >= j || ii >= jj)
+            return NULL;
+        
+        int val = postorder[j - 1];
+        vector<int>::iterator pos = find(inorder.begin() + ii, inorder.begin() + jj, val);
+        int offset = pos - inorder.begin() - ii;
+        
+        TreeNode *root = new TreeNode(val);
+        root->left = helper(postorder, i, i + offset, inorder, ii, ii + offset);
+        root->right = helper(postorder, i + offset, j - 1, inorder, ii + offset + 1, jj);
+        
+        return root;
+    }
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        if (inorder.size() == 0 || postorder.size() == 0) 
+            return NULL;
+        return helper(postorder, 0, postorder.size(), inorder, 0, inorder.size());
+    }
+};
