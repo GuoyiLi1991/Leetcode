@@ -13,13 +13,14 @@ public:
         //edge case
         if (!root)
             return false;
+
         //find a leaf, terminate
         if (!root->left && !root->right)
-            if (root->val == sum)
-                return true;
-            else return false;
+            return (root->val == sum);
+
         //recursive step
-        return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);
+        sum -= root->val;
+        return hasPathSum(root->left, sum) || hasPathSum(root->right, sum);
         
     }
 };
