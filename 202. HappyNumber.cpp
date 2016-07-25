@@ -1,6 +1,6 @@
 class Solution {
     int sq[10] = {0, 1, 4, 9, 16, 25, 36, 49, 64, 81};
-    int ssd(int n) {
+    int ssd(int n) {  //sum of squares of digits
         int sum = 0;
         while (n) {
             int d = n % 10;
