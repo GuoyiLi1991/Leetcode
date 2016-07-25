@@ -15,3 +15,28 @@ public:
         return result;
     }
 };
+
+///////////// Two pointers
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> res(numRows, vector<int>{});
+        if (numRows == 0) return res;
+        for (int i = 0; i < numRows; i++) {
+            res[i].resize(i + 1);
+            res[i][0] = res[i][i] = 1;
+            if (i >= 2) {
+                int l = 1, r = i - 1;
+                while (l <= r) {
+                    res[i][l] = res[i][r] = res[i-1][l-1] + res[i-1][l];
+                    l++;
+                    r--;
+                }
+            }
+        }
+        
+        return res;
+        
+        
+    }
+};
