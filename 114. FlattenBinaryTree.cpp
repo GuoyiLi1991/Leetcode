@@ -7,6 +7,8 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+ //// O(n) time, in-place
 class Solution {
 public:
     void flatten(TreeNode* root) {
