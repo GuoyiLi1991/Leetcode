@@ -3,28 +3,30 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        //corner cases
-        if (s.length() <2)
-            return true;
-            
-        transform(s.begin(), s.end(), s.begin(), ::tolower);
-            
-        //check with 2 pointers
-        int l =0, r = s.length()-1;
-        while (l<=r)
-        {
-            //skip non-alphanumeric chars
-            while (!isalnum(s[l]) && l<r) l++;
-            while (!isalnum(s[r]) && l<r) r--;
-            
-            if (l==r) return true;
-            
-            if (s[l] != s[r]) return false;
-            else 
-            {
+        int n = s.size();
+        if (n < 2) return true;
+        int l = 0, r = n-1;
+        while (l < r) {
+            //first skipping non alphanumeric
+            if (!isalnum(s[l])) {
                 l++;
-                r--;
+                continue;
             }
+            if (!isalnum(s[r])) {
+                r--;
+                continue;
+            }
+
+            // for digital
+            if (isdigit(s[l]) && s[l] != s[r])
+                return false;
+
+            // for letters, ignore cases
+            if (tolower(s[l]) != tolower(s[r]))
+                return false;
+            
+            l++;
+            r--;
         }
         return true;
     }
