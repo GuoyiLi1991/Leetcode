@@ -48,3 +48,51 @@ public:
 };
 
 
+
+//////////////////
+// my version, complicated but beat 92%
+// convert directly from reverse linked list
+class Solution {
+    ListNode* reverseList(ListNode *head) {
+        if (!head || !head->next)
+            return head;
+        ListNode *pre = NULL;
+        ListNode *next = NULL;
+        while (head) {
+            next = head->next;
+            head->next = pre;
+            pre = head;
+            head = next;
+        }
+
+        return pre;
+    }
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (m >= n)
+            return head;
+        ListNode *start = head;
+        ListNode *end = head;
+        for (int i = 0; i < n - 1; i++) {
+            if (i < m - 2)
+                start = start->next;
+            end = end->next;
+        }
+        ListNode *rest = end->next;
+        end->next = NULL;
+        if (m != 1)
+            start->next = reverseList(start->next);
+        else
+            head = reverseList(head);
+            
+        while (start->next) {
+            start = start->next;
+        }
+        start->next = rest;
+        return head;
+        
+        
+    }
+};
+
+
