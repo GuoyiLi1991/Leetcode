@@ -36,3 +36,35 @@ public:
         return 0;
     }
 };
+
+////////////////
+// in place and consice
+// replace '.' by ' ', and take advantage of istringstream
+/////////////////
+class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+        std::replace(version1.begin(), version1.end(), '.', ' ');
+        std::replace(version2.begin(), version2.end(), '.', ' ');
+        
+        /* or .... notice the & 
+        for (char &c:version1) {
+            if (c == '.')
+                c = ' ';
+        }
+        for (char &c:version2) {
+            if (c == '.')
+                c = ' ';
+        }
+        */
+        
+        istringstream s1(version1), s2(version2);
+        while (1) {
+            int n1 = (s1 >> n1)? n1 : 0;
+            int n2 = (s2 >> n2)? n2 : 0;
+            if (n1 > n2) return 1;
+            if (n2 > n1) return -1;
+            if (!s1 && !s2) return 0;
+        }
+    }
+};
