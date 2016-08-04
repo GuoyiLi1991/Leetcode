@@ -32,3 +32,31 @@ public:
         return head;
     }
 };
+
+///////////
+// Another version
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        // removing head
+        while (head && head->val == val)
+            head = head->next;
+        // in-middle elements
+        ListNode *p = head;
+        while (p && p->next) {
+            ListNode *cur = p;
+            p = p->next;
+            if (p->val == val) {
+                cur->next = p->next;
+                delete p;
+                p = cur;
+            }
+        }
+        //removing last one
+        if (p && p->val == val) {
+            p = NULL;
+            delete p;
+        }
+        return head;
+    }
+};
