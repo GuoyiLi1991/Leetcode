@@ -11,7 +11,7 @@ class LRUCache{
     int maxCap;
     int t=0;
     priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> PQ;  //pair<value, time>
-    unordered_map<int, int> valuetable;
+    unordered_map<int, int> valuetable;  
     unordered_map<int, int> timetable;
     
 public:
