@@ -1,4 +1,4 @@
-// Brute Force: using recursion => TLE
+// Brute Force: using recursion => TLE (exponential time)
 class Solution {
 public:
     int numDecodings(string s) {
@@ -22,7 +22,7 @@ public:
     }
 };
 
-// DP
+// DP O(n)
 class Solution {
 public:
     int numDecodings(string s) {
@@ -46,3 +46,35 @@ public:
         return dp[0];
     }
 };
+
+//////// Another solution: similar to Fibonacci Number
+// Directly changed from 70. Climing ladder
+class Solution {
+    bool isValid(char c) {
+        return (c != '0');
+    }
+    
+    bool isValid(char a, char b) {
+        return (a == '1' || (a == '2' && b <= '6'));
+    }
+public:
+    int numDecodings(string s) {
+        int n = s.size();
+        if (n == 0) return 0;
+        if (s[0] == '0') return 0;
+        if (n == 1) return 1;
+        
+        int fn_1 = 1, fn_2 = 1;
+        for (int i = 1; i < n; i++) {
+            bool b1 = isValid(s[i]);  // current is valid
+            bool b2 = isValid(s[i-1], s[i]); // current can be combined with next
+            
+            int res = b1 * fn_1 + b2 * fn_2;
+            if (res == 0) return 0;
+            fn_2 = fn_1;
+            fn_1 = res;
+        }
+        return fn_1;
+    }
+};
+
