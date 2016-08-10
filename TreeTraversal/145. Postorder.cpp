@@ -15,14 +15,7 @@ class Solution {
         DFS(root->right,ans);
         ans.push_back(root->val);
     }
-public:
-    vector<int> postorderTraversal(TreeNode* root) {
-        /****** Recursive ********/
-        // vector<int> ans;
-        // DFS(root, ans);
-        // return ans;
-        /****** Iterative *******/
-        vector<int> ans;
+    void BFS(TreeNode *root, vector<int> &res) {
         if (!root) return ans;
         stack<TreeNode *> st;
         st.push(root);
@@ -38,8 +31,13 @@ public:
             if (cur->right)
                 st.push(cur->right);
         }
-        
-       // std::reverse(ans.begin(), ans.end());
+    }
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        DFS(root, ans);
+        //BFS(root, ans);
         return ans;
+
     }
 };
