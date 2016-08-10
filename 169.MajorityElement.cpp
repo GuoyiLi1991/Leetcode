@@ -11,13 +11,11 @@ public:
         for (int num:nums) {
             if (count == 0) {   //new start, update cur major
                 major = num;
-                count ++;
             }
+            if (major == num)  //continue increasing cur freq
+                count++;
             else
-                if (major == num)  //continue increasing cur freq
-                    count++;
-                else
-                    count--; //decrease cur freq
+                count--; //decrease cur freq
         }
         return major;
     }
