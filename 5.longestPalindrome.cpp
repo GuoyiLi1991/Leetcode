@@ -34,3 +34,39 @@ public:
     }
     
 };
+
+
+
+////////////
+// for each c in s, find longest palindrome with two pointers
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        if (n < 2) return s;
+        
+        int maxLen = 0;
+        int start = 0;
+        
+        for (int i = 0; i < n; i++) {
+            int l = i, r = i;
+            while (r < n && s[r] == s[r+1])
+                r++;
+            while (l > 0 && r < n - 1 && s[l - 1] == s[r + 1]) { 
+                // 1) l and r are legal 
+                // 2) palindrome is extensible 
+                l--;
+                r++;
+            }
+            
+            int len = r - l + 1;
+            if (len > maxLen) {// found a better sol
+                maxLen = len;
+                start = l;
+            }
+        }
+        
+        return s.substr(start, maxLen);
+            
+    }
+};
