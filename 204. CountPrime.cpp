@@ -35,4 +35,31 @@ public:
 
         return cnt;
     }
+
+    // Faster:
+    /* 
+    int countPrimes(int n) {
+        int cnt = 0;
+        bool ht[n];
+        fill_n(ht, n, true);
+        ht[0] = ht[1] = false;
+
+        for(int i = 0; i * i < n; i++) {
+            if (ht[i] == false)
+                continue;
+            
+            int k = i * i;  /////////TLE if use isPrime(i) instead of ht[i]
+            while (k <= n) {
+                ht[k] = false;
+                k += i;
+            }
+        }
+        
+        for(int i = 0; i < n; i++) {
+            if (ht[i]) cnt++;
+        }
+
+        return cnt;
+    }
+    */
 };
