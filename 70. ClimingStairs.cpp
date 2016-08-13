@@ -15,14 +15,14 @@ class Solution {
     //     }
     // }
 public:
-    int climbStairs(int n) {
+    int climbStairs(int n) {   
         // int res; //Backtracking has TLE
         // vector<int> opt{1,2};
         // backtracking(res, opt, n);
         // return res;
         
         //////////////////////////
-        // Fibonacci numbers /////
+        // Fibonacci numbers /////  // O(1)space, O(n) time
         int res;
         if (n <= 0) return 0;
         if (n == 1) return 1;
@@ -37,5 +37,19 @@ public:
         }
         return res;
             
+    }
+};
+
+///// Standard dp: O(n) space, O(n) time
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 0) return 0;
+        int dp[n]{0};
+        dp[0] = 1; //n = 1;
+        dp[1] = 2; //n = 2
+        for (int i = 2; i < n; i++) 
+            dp[i] = dp[i - 1] + dp[i - 2];
+        return dp[n - 1];
     }
 };
