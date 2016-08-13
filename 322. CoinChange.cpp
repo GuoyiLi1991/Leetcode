@@ -28,3 +28,20 @@ public:
 };
 
 
+////////DP: O(n * amount) time, O(amount) space
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        int dp[amount + 1];
+        int Max = amount + 1;
+        fill_n(dp, amount+1, Max);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++)
+            for(int j = 0; j < n; j++) {
+                if (i - coins[j] >= 0)
+                    dp[i] = min(dp[i - coins[j]] + 1, dp[i]);
+            }
+        return dp[amount] == Max? -1 : dp[amount];
+    }
+};
