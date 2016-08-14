@@ -1,3 +1,6 @@
+// 时间复杂度 O(nlogn)
+// 空间复杂度： 数组（O(n)), 链表O(1)
+
 void merge_sort(int array[], int helper[], int left, int right) {
 	// Recursion
 	// Base case
