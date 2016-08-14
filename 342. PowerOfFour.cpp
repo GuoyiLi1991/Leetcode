@@ -7,6 +7,15 @@ public:
     }
 };
 
+// No recursion/loop
+// Proof: 4^n - 1 = 4
+class Solution {
+public:
+    bool isPowerOfFour(int num) {
+        return (num >= 1 && (num & (num-1))== 0 && (num-1) % 3 == 0);
+    }
+};
+
 
 class Solution {
 public:
