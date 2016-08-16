@@ -19,7 +19,7 @@ void qSort(int array[], int left, int right) {
 // 		if (left < right)
 // 			swap(array[left++], array[right]);
 // 	}
-// 	return pivot;
+// 	return left;
 // }
 
 int partition(int A[], int left, int right) {
