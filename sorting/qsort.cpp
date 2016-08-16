@@ -24,13 +24,13 @@ void qSort(int array[], int left, int right) {
 
 int partition(int A[], int left, int right) {
 	int pivot = A[right];
-	int pIndex = left;
+	int index = left;
 	for (int i = left; i < right; i++) {
-		if (A[i] <= pivot) {
-			swap(A[i], A[pIndex]);
-			pIndex++;
-		}
+		if (A[i] >= pivot) 
+			swap(A[i], A[index++]);
+
 	}
-	swap(A[pIndex], A[right]);
-	return pIndex;
+
+	swap(A[index], A[right]);
+	return index;
 }
