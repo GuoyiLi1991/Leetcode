@@ -26,7 +26,7 @@ int partition(int A[], int left, int right) {
 	int pivot = A[right];
 	int index = left;
 	for (int i = left; i < right; i++) {
-		if (A[i] >= pivot) 
+		if (A[i] <= pivot) 
 			swap(A[i], A[index++]);
 
 	}
