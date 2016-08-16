@@ -1,3 +1,5 @@
+// Average time O(nlogn), worst O(n^2)
+// Extra space O(log n)? O(1) In place?
 void qSort(int array[], int left, int right) {
 	if (left >= right)
 		return;
