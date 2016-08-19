@@ -72,3 +72,44 @@ public:
         return nonrecursive(root);
     }
 };
+
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    //aka. backtracking
+    void dfs(vector<string> &res, string path, TreeNode *root) {  
+        if (!root)
+            return;
+        path += to_string(root->val);
+        
+        //if leaf, terminate
+        if (!root->left && !root->right) 
+        {
+            res.push_back(path);
+            return;
+        }
+        
+        //not leaf, recursive
+        if (root->left)
+            dfs(res, path + "->", root->left);
+        if (root->right)
+            dfs(res, path + "->", root->right);
+            
+    }
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> res;
+        string path;
+        dfs(res, path, root);
+        return res;
+    }
+};
