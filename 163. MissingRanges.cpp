@@ -14,12 +14,8 @@ public:
         vector<string> res;
         string s;
         
-        if (n == 0) {
-            if (lower == upper)
-                return vector<string>{to_string(lower)};
-            else
-                return vector<string>{range(lower - 1, upper + 1)}; //lower and upper are inclusive
-        }
+        if (n == 0) 
+            vector<string>{range(lower - 1, upper + 1)}; //lower and upper are inclusive
 
         // before nums
         s = range(lower - 1, nums[0]);
