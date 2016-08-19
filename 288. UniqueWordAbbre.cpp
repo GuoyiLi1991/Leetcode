@@ -17,6 +17,7 @@ public:
 
     bool isUnique(string word) {
         string abbr_word = toAbbr(word);
+        /*
         if (ht.find(abbr_word) == ht.end())
             return true;
         else {
@@ -26,6 +27,12 @@ public:
             else 
                 return *(similar.begin()) == word;
         }
+        */
+
+        // More consise way of thinkng:
+        // if word is found in set ht[abbr_word], then the set_size == 1
+        // else, set_size == 0
+        return ht[abbr_word].size() == ht[abbr_word].count(word);
     }
 };
 
