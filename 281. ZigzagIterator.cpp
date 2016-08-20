@@ -71,3 +71,60 @@ public:
  * ZigzagIterator i(v1, v2);
  * while (i.hasNext()) cout << i.next();
  */
+
+ class ZigzagIterator {
+    queue<pair<vector<int>::iterator, vector<int>::iterator>> q;
+public:
+    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
+        if (!v1.empty())
+            q.push(make_pair(v1.begin(), v1.end()));
+        if (!v2.empty())
+            q.push(make_pair(v2.begin(), v2.end()));
+    }
+
+    int next() {
+        vector<int>::iterator begin = q.front().first;
+        vector<int>::iterator end = q.front().second;
+        q.pop();
+        if (begin + 1 != end)
+            q.push(make_pair(begin + 1, end));
+        return *begin;
+    }
+
+    bool hasNext() {
+        return !q.empty();
+    }
+};
+
+ ////////////
+ // Follow up: compatible with k vectors
+ // Key: Using a queue
+ class ZigzagIterator {
+    queue<pair<vector<int>::iterator, vector<int>::iterator>> q;
+public:
+    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
+        if (!v1.empty())
+            q.push(make_pair(v1.begin(), v1.end()));
+        if (!v2.empty())
+            q.push(make_pair(v2.begin(), v2.end()));
+    }
+
+    int next() {
+        vector<int>::iterator begin = q.front().first;
+        vector<int>::iterator end = q.front().second;
+        q.pop();
+        if (begin + 1 != end)
+            q.push(make_pair(begin + 1, end));
+        return *begin;
+    }
+
+    bool hasNext() {
+        return !q.empty();
+    }
+};
+
+/**
+ * Your ZigzagIterator object will be instantiated and called as such:
+ * ZigzagIterator i(v1, v2);
+ * while (i.hasNext()) cout << i.next();
+ */
