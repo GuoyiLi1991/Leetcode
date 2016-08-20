@@ -30,3 +30,44 @@ public:
  * ZigzagIterator i(v1, v2);
  * while (i.hasNext()) cout << i.next();
  */
+
+
+ ///////solution 2: store iterators, then no need to
+ // keep the global vector
+ class ZigzagIterator {
+    vector<int>::iterator begin[2], end[2]; //store the beginning and ending indices
+    int p;
+public:
+    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
+        p = 0;
+        begin[0] = v1.begin();
+        begin[1] = v2.begin();
+        end[0] = v1.end();
+        end[1] = v2.end();
+    }
+
+    int next() {
+        p++;
+        if (begin[0] == end[0]) //v1 finish
+            return *begin[1]++;
+        else if (begin[1] == end[1]) //v0 finish
+                return *begin[0]++;
+        else { //v0 and v1 haven't finished
+            int i = p % 2;
+            if (i == 0)
+                return *begin[1]++;
+            else
+                return *begin[0]++;
+        }
+    }
+
+    bool hasNext() {
+        return !(begin[0] == end[0] && begin[1] == end[1]);
+    }
+};
+
+/**
+ * Your ZigzagIterator object will be instantiated and called as such:
+ * ZigzagIterator i(v1, v2);
+ * while (i.hasNext()) cout << i.next();
+ */
