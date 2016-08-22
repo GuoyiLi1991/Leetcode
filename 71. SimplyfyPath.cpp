@@ -1,3 +1,14 @@
+/* Another way to seperate the string by deliminator '/':
+ *
+ istringstream ss(path);
+ string token;
+
+ while (getline(ss, token, '/')) {
+    //if token == ......
+ }
+
+ */
+
 class Solution {
 public:
     string simplifyPath(string path) {
@@ -26,3 +37,4 @@ public:
         return  (res == "")? "/": res;
     }
 };
+
