@@ -18,13 +18,13 @@ public:
                 while (level < st.size()) //find the correct level
                     st.pop();
                     
-                if (st.empty())     //first level
+                if (st.empty())     // first level, push cur len
                     st.push(line.size());
-                else {              // already under some folder
+                else {              // already under some folder, push cur len + previous len + '\'
                     st.push(line.size() + st.top() + 1);
                 }
                 
-                if (line.find('.') != string::npos && st.top() > res)
+                if (line.find('.') != string::npos && st.top() > res) //store longest until now
                     res = st.top();
                 line = "";
             }
