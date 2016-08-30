@@ -52,3 +52,40 @@ public:
         return res;
     }
 };
+
+
+
+/////////////
+// BFS converted from vertical order traversal
+// BFS + map<level, list_of_vals>
+
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        if (!root)
+            return vector<vector<int>>{};
+        vector<vector<int>> res;
+        
+        queue<pair<TreeNode*, int>> q; //<node, level>
+        map<int, vector<int>> levels; // <level, list_of_vals>
+        q.push(make_pair(root, 0));
+        
+        while (!q.empty()) {
+            TreeNode *cur = q.front().first;
+            int level  = q.front().second;
+            
+            if (cur->left)
+                q.push(make_pair(cur->left, level - 1));
+            if (cur->right) 
+                q.push(make_pair(cur->right, level - 1));
+            
+            q.pop();
+            levels[level].push_back(cur->val);
+        }
+        
+        for (auto item:levels) {
+            res.push_back(item.second);
+        }
+        return res;
+    }
+};
