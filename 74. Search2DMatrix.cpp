@@ -1,14 +1,17 @@
+//////////
+// Sol1. Find the row in linear time, and do BS to the row
+// O(mlogn), 9ms
 class Solution {
     bool BinarySearch(vector<int> v, int target)
     {
         int l = 0, r = v.size();
-        while(l< v.size() && l<r)
+        while(l < r)
         {
             int mid = l + (r-l)/2;
             if (v[mid] == target)
                 return true;
             else if (v[mid] < target)  //search right of mid
-                l = mid+1;
+                l = mid + 1;
             else r = mid;
         }
         return false;
@@ -20,24 +23,18 @@ public:
         int m = matrix.size();
         int n = matrix[0].size();
         
-        int i = 0;
-        //which row: compare target with matrix[i][n-1]
-        // while(i < m && i<j-1)
-        // {
-        //     int mid = i + (j-i)/2;
-        //     if (matrix[mid][0] > target) j = mid;
-        //     else i = mid;
-        // }
-        while (matrix[i][n-1] < target)
-            i++;
-        if (i == m) return false;
+        int row = 0;
+        while (matrix[row][n-1] < target)
+            row++;
+        if (row == m) return false;
 
-        return BinarySearch(matrix[i], target);
+        return BinarySearch(matrix[row], target);
         
     }
 };
 
-
+///////////////////////////
+// Sol 2. Do BS to both rows and cols
  class Solution {
     public:
         bool searchMatrix(vector<vector<int>>& matrix, int target) {
