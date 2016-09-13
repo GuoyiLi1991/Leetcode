@@ -56,3 +56,7 @@ public:
         return false;
     }
 };
+
+// Sol 3. Even better! Divide and conqure
+// divide the matrix by quardratic
+// O(logm + log n)

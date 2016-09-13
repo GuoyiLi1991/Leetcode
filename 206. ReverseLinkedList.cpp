@@ -6,28 +6,52 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+ // Sol1. Recursive
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        ListNode *dummy = reverseList(head->next);
+        
+        head->next->next = head;
+        head->next = NULL;
+        
+        return dummy;
+    }
+};
+
+//////////
+// Sol 2. Iterative 
+// In-place, O(n) time
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        ListNode *pre = NULL, *post = NULL;
+        ListNode *cur = head;
+        while (cur) {
+            post = cur->next; //advance post
+            cur->next = pre;  //reverse cur and pre
+            pre = cur;    //advance pre
+            cur = post;   //advance p
+        }
+        return pre;
+    }
+};
+
+
+/////////////////
+// Sol 3. Iterative II
+// Need extra space for LL creation: insert node to head
+// O(n) space, O(n) time
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
         //corner case: 0 or 1 node
         if (!head || !(head->next)) return head;
-        
-        /******** Iterative I ************/
-        /*
-        ListNode *prev= NULL;
-        ListNode *cur = head;
-        while(cur)
-        {
-            ListNode *next = cur->next;
-            cur->next = prev; //reverse pointer direction
-
-            prev = cur;    //move forward
-            cur = next;  //move forward
-        }
-
-        return prev;
-
-        /******** Iterative II **********/
 
         ListNode *ptr = head, *l = NULL;
         
@@ -42,18 +66,7 @@ public:
             //delete(dtmp);
             ptr = ptr->next;
         }
-        return l;
-        
-        */
-        /********* Recursive ***********/
-        
-        struct ListNode *root = reverseList(head->next);
-        head->next->next = head;
-        head->next = NULL;
-        
-        return root;
-
-        
+        return l;  
     }
 };
 
