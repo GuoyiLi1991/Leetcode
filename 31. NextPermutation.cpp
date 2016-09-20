@@ -34,3 +34,27 @@ public:
         
     }
 };
+
+///////////////
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) { //1243  1324
+        int n = nums.size();
+        if (n < 2) return;
+        
+        int i = n - 1;
+        while (i >= 1 && nums[i] <= nums[i - 1])
+            i--;
+            
+        int edge = i - 1;
+        if (edge >= 0) {
+            for (i = n - 1; i > edge; i--) {
+                if (nums[i] > nums[edge])
+                    break;
+            }
+            swap(nums[i], nums[edge]);
+        }
+        
+        reverse(nums.begin() + edge + 1, nums.end());
+    }
+};

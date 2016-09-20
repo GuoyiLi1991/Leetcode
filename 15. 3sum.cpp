@@ -1,44 +1,31 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ret; // store result
+        vector<vector<int>> res;
+        int n = nums.size();
+        if (n < 3) return res;
         
-        //check corner case
-        if (nums.size()<3)
-            return ret;
-            
-        //ensure no-desending
         sort(nums.begin(), nums.end());
-        
-        //find the triplet using two pointers
-        for (int i = 0; i<nums.size()-2; i++)
-        {
-            int lptr = i+1; 
-            int rptr = nums.size()-1;
-
-            while (lptr < rptr) 
-            {
-                int sum = nums[lptr] + nums[rptr] + nums[i];
-                 //check if they three add up to 0
-                if (sum == 0)  //<i, lptr, rptr>
-                {
-                    vector<int> tmp; //store the triplet
-                    tmp.push_back(nums[i]);
-                    tmp.push_back(nums[lptr]);
-                    tmp.push_back(nums[rptr]);
-                    ret.push_back(tmp);
-                    lptr++;
-                    rptr--;
-                    //jump duplication
-                    while(nums[lptr] == nums[lptr-1]) lptr++;
-                    while(nums[rptr] == nums[rptr+1]) rptr--;
-                    while(nums[i]==nums[i+1]) i++;
+        for (int i = 0; i < n - 2; i++) {
+            int l = i + 1, r = n - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == 0) {
+                    res.push_back(vector<int>({nums[i], nums[l], nums[r]}));
+                    while (l < r && nums[l] == nums[l + 1]) l++;
+                    while (l < r && nums[r] == nums[r - 1]) r--;
+                    while (i < n - 2 && nums[i] == nums[i + 1])
+                        i++;
+                    l++; r--;
+                        
                 }
-                else //move lptr and rptr
-                if (sum <0) lptr++;
-                else rptr--;
+                else if (sum < 0) {
+                    l++;
+                }
+                else r--;
             }
+            
         }
-        return ret;
+        return res;
     }
 };

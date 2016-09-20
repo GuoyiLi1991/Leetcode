@@ -53,3 +53,24 @@ public:
         
     }
 };
+
+////////////////////
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int m = haystack.size(), n = needle.size();
+        if (n > m) return -1;
+        if (n == 0 || haystack == needle) return 0;
+        
+        int l = 0, r = 0;
+        while (r < m && r - l < n) {
+            if (haystack[r] == needle[r - l])
+                r++;
+            else
+                r = ++l;
+        }
+        
+        if (r - l == n) return l;
+        else return -1;
+    }
+};
