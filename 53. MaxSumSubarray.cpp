@@ -12,7 +12,7 @@ public:
         {
             maxLocal += nums[i];
             maxGlobal = max(maxLocal, maxGlobal);
-            maxLocal = max(0, maxLocal);
+            maxLocal = (maxLocal < 0)? 0: maxLocal;
         }
         
         return maxGlobal;

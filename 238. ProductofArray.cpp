@@ -5,19 +5,19 @@ public:
         vector<int> res(n, 1);
         
         // from left to right
-        int dummy = 1;
+        int front_so_far = 1;
+        int back_so_far = 1;
         for (int i = 1; i < n; ++i) {
-            dummy *= nums[i-1];
-            res[i] = dummy;
+            front_so_far *= nums[i - 1];
+            res[i] = front_so_far;
         }
         
         // from right to left
-        dummy  = 1;
         for (int i = n - 2; i >=0; --i) {
-            dummy *= nums[i + 1];
-            res[i] *= dummy;
+            back_so_far *= nums[i + 1];
+            res[i] *= back_so_far;
         }
-        return res;
         
+        return res;
     }
 };
