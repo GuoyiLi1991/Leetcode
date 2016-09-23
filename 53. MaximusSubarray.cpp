@@ -14,7 +14,7 @@ public:
             maxGlobal = max(maxLocal, maxGlobal);
             maxLocal = max(0, maxLocal);
         }
-        return maxGlobal;
         
+        return maxGlobal;
     }
 };

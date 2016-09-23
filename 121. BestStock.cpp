@@ -1,41 +1,37 @@
+//////////
+// Sol1: record lowest until i-th pos
 class Solution {
-    int sol1(vector<int>&prices)
-    {
-        int n = prices.size();
-        if (n < 2) return 0;  // no chance to sell the stock
-        
-        int minprice = prices[0];
-        int maxprof = 0;
-        
-        for (int i = 1; i < n; i++)
-        {
-            minprice = min(prices[i], minprice);    //record lowest buy price so far
-            maxprof = max(maxprof, prices[i] - minprice);
-        }
-        
-        return maxprof;
-    }
-    
-    int sol2(vector<int>& prices)  //Kadane's Algorithm, Maximum subarray problem
-    {
+    int maxProfit(vector<int>& prices) {
         int n = prices.size();
         if (n < 2) return 0;
+
+        int maxProfit = 0;
+        int lowest = prices[0]; //lowest buying until i
+        for (int i = 1; i < n; i++) {
+            maxProfit = max(maxProfit, prices[i] - lowest);
+            lowest = min(lowest, prices[i]);
+        }
+
+        return maxProfit;
+    }
+};
+    
+
+//////////
+// Sol2: record max profit in each subarray
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        if (n == 0) return 0;
         
-        int maxLocal = 0, maxGlobal = 0;
-        
-        for (int i = 1; i < n; i++)
-        {
-            int diff = prices[i] - prices[i-1];
-            maxLocal = max(0, maxLocal + diff);
+        int maxGlobal = 0, maxLocal = 0;
+        for (int i = 1; i < n; i++) {
+            int change = prices[i] - prices[i - 1];
+            maxLocal = max(maxLocal + change, 0);//maximum profit in the new subarray
             maxGlobal = max(maxLocal, maxGlobal);
         }
         
         return maxGlobal;
-    }
-public:
-    int maxProfit(vector<int>& prices) {
-        
-       // return sol1(prices);
-       return sol2(prices);
     }
 };
