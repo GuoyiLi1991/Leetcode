@@ -5,14 +5,14 @@ class Solution {
     bool BinarySearch(vector<int> v, int target)
     {
         int l = 0, r = v.size();
-        while(l < r)
+        while(l <= r)
         {
             int mid = l + (r-l)/2;
             if (v[mid] == target)
                 return true;
             else if (v[mid] < target)  //search right of mid
                 l = mid + 1;
-            else r = mid;
+            else r = mid - 1;
         }
         return false;
     }
@@ -24,12 +24,11 @@ public:
         int n = matrix[0].size();
         
         int row = 0;
-        while (matrix[row][n-1] < target)
+        while (row < m && matrix[row][n-1] < target)
             row++;
         if (row == m) return false;
 
         return BinarySearch(matrix[row], target);
-        
     }
 };
 
@@ -47,7 +46,8 @@ public:
             while(end-start > 1){
                 mid=(start+end)/2;
                 if(matrix[mid][0]<=target)  start=mid;
-                else if(matrix[mid][0]>target)  end=mid;
+                else //if(matrix[mid][0]>target)  
+                    end=mid;
             }
             int row=start;
             cout<<"row:"<<row<<endl;

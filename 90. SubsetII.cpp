@@ -28,3 +28,27 @@ public:
         
     }
 };
+
+
+
+///////// Redo
+class Solution {
+    void dfs(vector<vector<int>>& res, vector<int>& set, vector<int>& nums, int pos) {
+        res.push_back(set);
+        for (int i = pos; i < nums.size(); i++) {
+            if (i != pos && nums[i] == nums[i - 1])
+                continue;
+            set.push_back(nums[i]);
+            dfs(res, set, nums, i + 1);
+            set.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> res;
+        vector<int> set;
+        dfs(res, set, nums, 0);
+        return res;
+    }
+};
