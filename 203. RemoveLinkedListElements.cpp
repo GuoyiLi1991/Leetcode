@@ -60,3 +60,28 @@ public:
         return head;
     }
 };
+
+
+
+////////////
+// using dummy
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode *dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode *prev = dummy, *cur = head;
+        while (cur) {
+            if (cur->val == val) {
+                prev->next = cur->next;
+                delete cur;
+                cur = prev->next;
+            }
+            else {
+                prev = cur;
+                cur = cur->next;
+            }
+        }
+        return dummy->next;
+    }
+};

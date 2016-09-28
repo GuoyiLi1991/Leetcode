@@ -1,26 +1,42 @@
-class minStack{
-    int top;
-    priority_queue<int> st;
-    
-    void push(int x)
-    {
-        st.push(x);
-        top = x;
+class MinStack {
+    stack<int> minStack;
+    stack<int> mainStack;
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        
     }
     
-    int pop()
-    {
-        st.pop();
+    void push(int x) {
+        if (minStack.empty() || x <= minStack.top())
+            minStack.push(x);
+        mainStack.push(x);
     }
     
-    int top()
-    {
-        return top;
+    void pop() {
+        if (mainStack.top() == getMin())
+            minStack.pop();
+        mainStack.pop();
     }
     
-    int getMin()
-    {
-        return st.front();
+    int top() {
+        if (!mainStack.empty())
+            return mainStack.top();
+        else return -1;
     }
     
+    int getMin() {
+        if (!minStack.empty())
+            return minStack.top();
+        else return -1;
+    }
 };
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
