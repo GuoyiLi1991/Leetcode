@@ -1,4 +1,5 @@
 // Sol1. Heap. Did not take advantage of "Sorted"
+// Time: O(klogk), where worst case of k = n^2
 // 102ms.
 
 class Solution {

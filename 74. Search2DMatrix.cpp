@@ -1,6 +1,6 @@
 //////////
 // Sol1. Find the row in linear time, and do BS to the row
-// O(mlogn), 9ms
+// O(m + logn), 9ms
 class Solution {
     bool BinarySearch(vector<int> v, int target)
     {
@@ -97,5 +97,41 @@ public:
         
         return false;
      }
+};
+
+
+///////////
+// Sol3: 2D->1D, do binary search
+// Time: O(log(mn))
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size();
+        if (m == 0) return false;
+        int n = matrix[0].size();
+        if (n == 0) return false;
+        
+        //corner case:
+        if (target < matrix[0][0] || target > matrix[m - 1][n - 1])
+            return false;
+        //general binary search
+        int l = 0, r = m * n - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            int row = mid / n;
+            int col = mid % n;
+            int tmp = matrix[row][col];
+            
+            if (tmp == target)
+                return true;
+            if (tmp > target) //search left
+                r = mid - 1;
+            else
+                l = mid + 1;
+        }
+        
+        return false;
+        
+    }
 };
 

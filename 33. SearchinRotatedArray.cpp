@@ -120,3 +120,35 @@ public:
     }
 };
 
+
+//////
+// Rewrite
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        int l = 0, r = n - 1;
+        while (l <= r) {
+            int mid = l + (r - l)/2;
+            if (nums[mid] == target)
+                return mid;
+            if (nums[mid] < nums[l]) { //[l, pivot, mid, r] 
+                if (nums[mid] < target && target <= nums[r]) //guarenteed within(mid, r]
+                    l = mid + 1;
+                else
+                    r = mid - 1;
+            }
+            else { //[l, mid, pivot, r] 
+                if (nums[l] <= target && target < nums[mid]) //guarenteed within[l, mid)
+                    r = mid - 1;
+                else
+                    l = mid + 1;
+            }
+        }
+        // if (nums[l] == target) return l;
+        // if (nums[r] == target) return r;
+        return -1;
+    }
+};
+
