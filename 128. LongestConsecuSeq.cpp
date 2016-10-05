@@ -60,51 +60,54 @@ public:
 class Solution {
     vector<int> id;
     vector<int> size;
-    //int longest = 1;
-public:
+    
+    void make_set(vector<int>& id, vector<int>& size, n) {
+        int n = nums.size();
+        id = vector<int>(n, 0);
+        size = vector<int>(n, 1);
+        for (int i = 1; i < n; i++) {
+            id = i;
+        }
+    }
+    
     int find(int x) {
         if (x == id[x])
             return x;
-        else
-            return find(id[x]);
+        return find(id[x]);
     }
     
-    void unionSet(int x, int y) {
-        int xRoot = find(x); //id[x]
-        int yRoot = find(y); //id[y]
-      
-        if (xRoot == yRoot) //no need to union
-            return;
-        if (size[xRoot] > size[yRoot]) { //add y tree to x
-            id[yRoot] = xRoot;
-            size[xRoot] += size[yRoot];
-        }
-        else {
+    void unions(int x, int y) {
+        int xRoot = find(x);
+        int yRoot = find(y);
+        if (xRoot == yRoot) return; //no combination needed
+        int xSize = size[xRoot], ySize = size[yRoot]; //make a biggest tree
+        if (xSize < ySize) {
             id[xRoot] = yRoot;
             size[yRoot] += size[xRoot];
         }
-       // longest = max(longest, max(size[xRoot], size[yRoot]));
+        else {
+            id[yRoot] = xRoot;
+            size[xRoot] += size[yRoot];
+        }
+        
     }
-    
+public:
     int longestConsecutive(vector<int>& nums) {
         int n = nums.size();
-        if (n == 0 || n == 1) return n;
+        if (n < 2) return n;
         
-        //general case
-        size = vector<int>(n, 1);
-        for (int i = 0; i < n; i++)
-            id.push_back(i);
-            
-        unordered_map<int, int> record; //<val, id>
-        for (int i : id) {
-            int val = nums[i];
-            if (record.count(val) != 1) {
-                record[val] = i;
-                if (record.count(val - 1))
-                    unionSet(i, record[val - 1]);
-                if (record.count(val + 1))
-                    unionSet(i, record[val + 1]);
-            }
+        make_set(id, size, n);
+        unordered_map<int, int> val_id;
+        for (int i = 0; i < n; i++) {
+            val_id[nums[i]] = i;
+        }
+        
+        //union set
+        for (int val : nums) {
+            if (val_id.count(val - 1))
+                unions(val_id[val], val_id[val - 1]);
+            if (val_id.count(val + 1))
+                unions(val_id[val], val_id[val + 1]);    
         }
         
         return *max_element(size.begin(), size.end());

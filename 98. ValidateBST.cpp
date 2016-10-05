@@ -1,12 +1,33 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+// Sol1. isSorted(inorder_vector)
+class Solution {
+    void inorder(vector<int>& nums, TreeNode* root) {
+        if (!root) return ;
+        inorder(nums, root->left);
+        nums.push_back(root->val);
+        inorder(nums, root->right);
+    }
+    
+    bool isSorted(vector<int>& nums) {
+        if (nums.size() < 2)
+            return true;
+            
+        for (int i = 0; i < nums.size() - 1; i++) {
+            if (nums[i] >= nums[i + 1])
+                return false;
+        }
+        return true;
+    }
+    
+public:
+    bool isValidBST(TreeNode* root) {
+        vector<int> nums;
+        inorder(nums, root);
+        return isSorted(nums);
+    }
+};
+
+//////////////////////////
+
 class Solution {
 
     // bool isSorted(vector<int>&nums)
