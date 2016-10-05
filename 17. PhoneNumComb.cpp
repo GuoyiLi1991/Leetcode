@@ -61,3 +61,32 @@ public:
         return res;
     }
 };
+
+////////////////
+// Non-recursive way, just loop
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> res;
+        int n = digits.size();
+        if (n == 0) return res;
+        
+        //general cases
+        res.push_back("");
+        string dig_letter[10] = {" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        for (int i = 0; i < n; i++) { //for every digit
+            for (int j = res.size() - 1; j >= 0; j--) {
+                int d = int(digits[i] - '0');
+                string str = dig_letter[d];
+                for (int k = 0; k < str.size(); k++) { //for each possible letter represented by number d
+                    if (k != str.size() - 1)
+                        res.push_back(res[j] + str[k]);
+                    else
+                        res[j] += str[k];
+                }
+            }
+        }
+        
+        return res;
+    }
+};
