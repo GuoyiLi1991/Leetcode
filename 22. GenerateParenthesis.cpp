@@ -3,6 +3,7 @@ class Solution {
     void generateParenthesis(vector<string> &res, string str, int n, int lc, int rc) {
         //lc : how many '(' already added
         //rc: how many ')' already added
+        //make sure that rc <= lc <= n
         if (lc == n && rc == n) {
             res.push_back(str);
             return;
