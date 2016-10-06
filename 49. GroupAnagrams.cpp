@@ -1,5 +1,5 @@
 class Solution {
-    string strSort(string str)
+    string strSort(string str) //count sort, O(len(str))
     {
         char mp[26] = {0};
         for (char c:str)
