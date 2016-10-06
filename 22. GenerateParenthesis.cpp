@@ -1,4 +1,4 @@
-////////////// Simple recursion /////////////////
+////////////// Simple recursion 3ms /////////////////
 class Solution {
     void generateParenthesis(vector<string> &res, string str, int n, int lc, int rc) {
         //lc : how many '(' already added
