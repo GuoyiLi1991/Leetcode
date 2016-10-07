@@ -1,5 +1,5 @@
 //union-find, merge-find, disjoint-set
-
+// O(|E|)
 class Solution {
     vector<int> id; //x.parent
     void makeSet(int n)
