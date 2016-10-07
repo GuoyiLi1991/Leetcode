@@ -36,13 +36,10 @@ class Solution {
         if (!root) return 0; //height is 0
         
         //check if left or right is unbalanced
-        int leftHeight = checkHeight(root->left);
-        int rightHeight = checkHeight(root->right);
-        if (leftHeight == -1 ||  rightHeight == -1)
-            return -1;
-        
-        //check if current node is balanced
-        if (abs(leftHeight - rightHeight) > 1)
+        int leftHeight = getHeight(root->left);
+        int rightHeight = getHeight(root->right);
+        if (leftHeight == -1 ||  rightHeight == -1 
+            || abs(leftHeight - rightHeight) > 1)
             return -1;
         else
             return 1 + max(leftHeight, rightHeight);
