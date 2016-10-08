@@ -7,6 +7,8 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+ // Sol1. Non- Recursive: BFS
 class Solution {
     void preorder(TreeNode *root, vector<int> &ans){
         if (!root) return;
@@ -16,12 +18,6 @@ class Solution {
     }
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-        /******** Recursive **********/
-        // vector<int> ans;
-        // preorder(root, ans);
-        // return ans;
-        
-        /******** Iterative *********/
         vector<int> ans;
         if (!root) return ans;
         
@@ -38,5 +34,46 @@ public:
         }
         
         return ans;
+    }
+};
+
+
+//////////////
+// Sol2. Recursion: DFS
+class Solution {
+    void preorder(TreeNode *root, vector<int> &ans){
+        if (!root) return;
+        ans.push_back(root->val);
+        preorder(root->left, ans);
+        preorder(root->right, ans);
+    }
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        preorder(root, ans);
+        return ans;
+    }
+};
+
+
+////////////
+// Sol3. Divide and conquer
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if (!root)
+            return res;
+            
+        //divide
+        vector<int> left = preorderTraversal(root->left);
+        vector<int> right = preorderTraversal(root->right);
+        
+        //conquer
+        res.push_back(root->val);
+        res.insert(res.end(), left.begin(), left.end());
+        res.insert(res.end(), right.begin(), right.end());
+        
+        return res;
     }
 };

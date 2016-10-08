@@ -10,12 +10,6 @@
 
  // Sol1. Non- Recursive: BFS
 class Solution {
-    void preorder(TreeNode *root, vector<int> &ans){
-        if (!root) return;
-        ans.push_back(root->val);
-        preorder(root->left, ans);
-        preorder(root->right, ans);
-    }
 public:
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> ans;
@@ -41,16 +35,16 @@ public:
 //////////////
 // Sol2. Recursion: DFS
 class Solution {
-    void preorder(TreeNode *root, vector<int> &ans){
+    void dfs(TreeNode *root, vector<int> &ans){
         if (!root) return;
         ans.push_back(root->val);
-        preorder(root->left, ans);
-        preorder(root->right, ans);
+        dfs(root->left, ans);
+        dfs(root->right, ans);
     }
 public:
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> ans;
-        preorder(root, ans);
+        dfs(root, ans);
         return ans;
     }
 };
