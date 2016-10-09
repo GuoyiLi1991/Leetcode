@@ -14,9 +14,7 @@ class Solution {
         for (int i = pos; i< candidates.size(); ++i)
         {
             list.push_back(num);
-            dfs(result, list, candidates, target - candidates[i], i); 
-            //different from before:
-            //still search in the SAME level it allows multiple use of the letter
+            dfs(result, list, candidates, target - candidates[i], i); //注意这里pos不往前移，当前元素继续被考虑
             list.pop_back();
         }
     }
