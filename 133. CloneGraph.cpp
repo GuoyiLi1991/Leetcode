@@ -35,3 +35,31 @@ public:
         return copy;
     }
 };
+
+
+//////////
+// Sol2. DFS
+class Solution {
+    unordered_map<int, UndirectedGraphNode*> ht;
+    UndirectedGraphNode* clone(UndirectedGraphNode* node) {
+        //given a node, return its cloned version
+        if (!node) return NULL;
+        
+        if (ht.count(node->label)) //memorization
+            return ht[node->label];
+        
+        UndirectedGraphNode* copy = new UndirectedGraphNode(node->label);
+        ht[node->label] = copy;
+        
+        for (auto neighbor : node->neighbors) {
+            copy->neighbors.push_back(clone(neighbor)); //recursion
+        }
+        
+        return copy;
+    }
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        return clone(node);
+    }
+};
+
