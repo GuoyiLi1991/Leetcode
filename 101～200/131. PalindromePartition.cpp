@@ -1,3 +1,4 @@
+//本质上是一个subset问题，valid cut的位置组合
 class Solution {
     bool isPalindrome(string s, int i, int j) { //check if s[i, ....j] is a palindrome
         while (i <= j) {
@@ -28,4 +29,6 @@ public:
         return res;
     }
 };
+
+//改进：可以考虑preprocessing，来减小循环开销
 

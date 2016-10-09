@@ -25,13 +25,16 @@ public:
             else if (c == '-')
                 sign = -1;
             else { //meet number
-                int num = c - '0';
-                i++;
-                while (i < s.size() && isdigit(s[i])) {
-                    num = num * 10 + (s[i] - '0');
-                    i++;
-                } //stop when s[i] is not digit
-                i--;
+                // int num = c - '0';
+                // i++;
+                // while (i < s.size() && isdigit(s[i])) {
+                //     num = num * 10 + (s[i] - '0');
+                //     i++;
+                // } //stop when s[i] is not digit
+                // i--;
+                int l = i;
+                i = s.find_first_not_of("0123456789", l);
+                num = stoi(s.substr(l, i));
                 res += num * sign * st.top();
             }
         }

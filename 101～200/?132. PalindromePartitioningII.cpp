@@ -1,3 +1,4 @@
+// min/max DP
 class Solution {
 public:
     int minCut(string s) {
