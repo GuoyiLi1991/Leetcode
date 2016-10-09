@@ -21,9 +21,41 @@ public:
     }
 };
 
-////////////
+//////
+// Sol1-2 Bottom-up DP, 6ms
+// Time: O(N^2) Space: O(N^2), dp数组大小
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size(); // length of path
+        if (n == 0) return 0;
+        
+        vector<vector<int>> dp(n, vector<int>());
+        
+        //bottom line
+        dp[n - 1].resize(n);
+        for (int j = 0; j < n; j++) {
+            dp[n - 1][j] = triangle[n - 1][j];
+        }
+        
+        //others
+        for (int i = n - 2; i >= 0; i--) {
+            dp[i].resize(i + 1);
+            for (int j = 0; j <= i; j++) {
+                dp[i][j] = triangle[i][j] + min(dp[i + 1][j], dp[i + 1][j + 1]);
+            }
+        }
+        
+        return dp[0][0];
+    }
+};
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
 // Sol2: DFS, TLE
 // Time: O(2^n), n is the depth
+// Space: O(1)
 // Every time going down, choose from 2 options
 class Solution {
     int best = INT_MAX;
@@ -74,6 +106,7 @@ public:
 // !!!!!!!!!
 // Sol4. Better D&C using dfs, ACCEPT, 56ms
 // Time: O(n^2), n is depth
+// Space: O(n^2)
 // # of nodes = 1+2+3+...+(n-1) = O(n^2), 因为有了ht,避免重复计算
 class Solution {
     int dfs(int x, int y, vector<vector<int>>& A, 
@@ -82,7 +115,7 @@ class Solution {
             return 0;  //stop adding
         }
         
-        if (ht.count(x)  && ht[x].count(y))
+        if (ht.count(x)  && ht[x].count(y))  // 和上一种唯一差别，Memorization Search
             return ht[x][y];
             
         int left = dfs(x + 1, y, A, ht);
