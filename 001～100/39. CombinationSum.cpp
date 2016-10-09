@@ -1,26 +1,22 @@
+// Find all solutions => DFS, indeed "Subset" problem.
 class Solution {
-    void backtracking(vector<vector<int>> & result, vector<int>&list, vector<int>&candidates, int target, int level)
+    void dfs(vector<vector<int>> & res, vector<int>&list, vector<int>&candidates, int target, int pos)
     {
-        //base case
-        if (target == 0) //found
+        //Terminate cond
+        if (target <= 0) 
         {
-            result.push_back(list);
+            if (target == 0)
+                result.push_back(list);
             return;
         }
-        
-        if (target < 0)  //invalid combination
-            return;
             
-        //recursive
-        for (int i = level; i< candidates.size(); ++i)
+        //else, continue recursive dfs
+        for (int i = pos; i< candidates.size(); ++i)
         {
-            int num = candidates[i];
             list.push_back(num);
-            target -= num;
-            backtracking(result, list, candidates, target, i); 
+            dfs(result, list, candidates, target - candidates[i], i); 
             //different from before:
-            //still search in the same level it allows multiple use of the letter
-            target += num;
+            //still search in the SAME level it allows multiple use of the letter
             list.pop_back();
         }
     }
@@ -29,7 +25,7 @@ public:
         vector<vector<int>> result;
         vector<int>list;
         sort(candidates.begin(), candidates.end());
-        backtracking(result, list, candidates, target, 0);
+        dfs(result, list, candidates, target, 0);
         return result;
         
     }
