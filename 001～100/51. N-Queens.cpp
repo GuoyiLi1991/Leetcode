@@ -1,3 +1,5 @@
+// DFS, Permutation
+// O(N!), n * (n-1) * (n-2)*...*1 col options to place Q
 class Solution {
     bool isValid(vector<string> &sol, int row, int col, int n) { //check if sol[row][col] can place a 'Q'
         int i, j;
