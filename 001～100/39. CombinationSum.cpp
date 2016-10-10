@@ -14,7 +14,8 @@ class Solution {
         for (int i = pos; i< candidates.size(); ++i)
         {
             list.push_back(num);
-            dfs(result, list, candidates, target - candidates[i], i); //注意这里pos不往前移，当前元素继续被考虑
+            dfs(result, list, candidates, target - candidates[i], i); 
+            //注意这里pos不往前移，当前元素继续被考虑
             list.pop_back();
         }
     }
@@ -22,7 +23,7 @@ public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>> result;
         vector<int>list;
-        sort(candidates.begin(), candidates.end());
+        //无需sort!
         dfs(result, list, candidates, target, 0);
         return result;
         
