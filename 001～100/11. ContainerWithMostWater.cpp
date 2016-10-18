@@ -9,10 +9,8 @@ public:
             int h = min(height[l], height[r]);
             res =  max(h * (r - l), res);
 
-            if (l < r && height[l] <= h)
-                l++;
-            if (l < r && height[r] <= h)
-                r--;
+            if (height[l] <= h) l++;
+            if (height[r] <= h) r--;
         }
         return res;
     }
