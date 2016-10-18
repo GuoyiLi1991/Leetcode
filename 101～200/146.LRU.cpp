@@ -62,3 +62,119 @@ public:
     }
     
 };
+
+
+/////////
+// deque TLE
+class LRUCache{
+    deque<int> keys;
+    unordered_map<int, deque<int>::iterator> ht; //<key, itr>
+    int cap;
+    unordered_map<int, int> dict; //<key, value>
+    
+    void touch(int key) {
+       // auto pos  = find(keys.begin(), keys.end(), key);
+        keys.erase(ht[key]);
+        keys.push_back(key);
+        ht[key] = keys.end();
+    }
+    
+public:
+    LRUCache(int capacity) {
+        //if (cap >1000) exit(0);
+        cap = capacity;
+    }
+    
+    int get(int key) {
+        if (dict.count(key) == 0) 
+            return -1;
+        touch(key);
+        return dict[key];
+    }
+    
+    void set(int key, int value) {
+        if (dict.count(key) != 0) {// found
+            touch(key);
+            dict[key] = value;
+            ht[key] = keys.end();
+            return;
+        }
+        
+        //if not found
+        if (keys.size() == cap) {
+            //remove oldest one
+            dict.erase(keys.front());
+            ht.erase(keys.front());
+            keys.pop_front();
+        }
+        keys.push_back(key);
+        ht[key] = keys.end();
+        dict[key] = value;
+    }
+};
+
+///////////////
+// Priority queue rewrite
+struct Elem{
+    int time;
+    int key;
+  // int value;
+};
+
+struct Cmp {
+    bool operator()(Elem& a, Elem& b) { //min heap
+        return a.time > b.time;
+    }
+};
+class LRUCache{
+    //typedef pair<int, int> Elem; //<time, key>
+    int cap;
+    int t;
+    unordered_map<int, int> key_time;
+    unordered_map<int, int> key_value;
+    priority_queue<Elem, vector<Elem>, Cmp> pq; //older has higher priority
+public:
+    LRUCache(int capacity) {
+        cap = capacity;
+        t = 0;
+    }
+    
+    int get(int key) {
+        t++;
+        if (key_value.count(key) == 0)
+            return -1;
+        
+        key_time[key] = t;
+        return key_value[key];
+    }
+    
+    void set(int key, int value) {
+        t++;
+        
+        //already in cache, just update timestamp and value
+        if (key_value.count(key)) {
+            key_time[key] = t;
+            key_value[key] = value;
+        }
+        else {
+            if (pq.size() >= cap) {
+                while (pq.top().time != key_time[pq.top().key]) { 
+                    Elem x = pq.top();
+                    x.time = key_time[x.key];
+                    pq.pop();
+                    pq.push(x);
+                }
+                
+                int oldKey = pq.top().key;
+                key_value.erase(oldKey);
+                key_time.erase(oldKey);
+                pq.pop();
+            }
+            
+            //insert
+            key_value[key] = value;
+            key_time[key] = t;
+            pq.push(Elem{t, key});
+        }
+    }
+};

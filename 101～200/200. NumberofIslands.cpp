@@ -1,35 +1,42 @@
 //////////
-// Sol1. DFS, 9ms
+// Sol1. DFS, 9ms, O(MN)
 class Solution {
-    void dfs(vector<vector<char>>& grid, int m, int n, int i, int j) {
+    void dfs(vector<vector<char>>& grid, int i, int j) {
+        //set all neighbour 1's to 0's
+        int m = grid.size(), n = grid[0].size();
         grid[i][j] = '0';
+        
         if (i > 0 && grid[i - 1][j] == '1')
-            dfs(grid, m, n, i - 1, j);
-        if (j > 0 && grid[i][j - 1] == '1')
-            dfs(grid, m, n, i, j - 1);
+            dfs(grid, i - 1, j);
+            
         if (i < m - 1 && grid[i + 1][j] == '1')
-            dfs(grid, m, n, i + 1, j);
+            dfs(grid, i + 1, j);
+            
+        if (j > 0 && grid[i][j - 1] == '1')
+            dfs(grid, i, j - 1);
+            
         if (j < n - 1 && grid[i][j + 1] == '1')
-            dfs(grid, m, n, i, j + 1);
+            dfs(grid, i, j + 1);
     }
 public:
     int numIslands(vector<vector<char>>& grid) {
-        int m = grid.size(); if (m == 0) return 0;
-        int n = grid[0].size(); if (n == 0) return 0;
+        if (grid.empty() || grid[0].empty())
+            return 0;
+        int m = grid.size(), n = grid[0].size();
         
-        int ans = 0;
+        int res = 0;
         for (int i = 0; i < m; i++) {
-            for (int j = 0;  j < n; j++) {
-                if (grid[i][j] == '0') continue;
-                ans++;
-                dfs(grid, m, n, i, j); //set all '1's that connected to it to '0'
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    res++;
+                    dfs(grid, i, j);
+                }
+                //skip '0'
             }
         }
-        
-        return ans;
+        return res;
     }
 };
-
 
 
 

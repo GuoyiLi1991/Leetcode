@@ -5,7 +5,8 @@ public:
         if (p.empty()) return s.empty();
         
         if (p[1] != '*')
-            return !s.empty() && (p[0] == s[0] || p[0] == '.') && isMatch(s.substr(1), p.substr(1)); //move together
+            return !s.empty() && (p[0] == s[0] || p[0] == '.') 
+            && isMatch(s.substr(1), p.substr(1)); //move together
         else
             return isMatch(s, p.substr(2)) ||  // * means 0
                 (!s.empty() && (p[0] == s[0] || p[0] == '.') && isMatch(s.substr(1), p)); // * means >= 1 times
