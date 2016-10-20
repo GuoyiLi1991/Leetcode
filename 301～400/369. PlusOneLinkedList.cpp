@@ -1,11 +1,4 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+// Sol1: Linkedlist->vector->linkedlist
 class Solution {
     ListNode* helper(vector<int>& nums) {
         int c = 1; //carry
@@ -39,5 +32,37 @@ public:
         }
         
         return helper(nums);
+    }
+};
+
+//Sol2: Find the last not-nine
+class Solution {
+public:
+    ListNode* plusOne(ListNode* head) {
+        ListNode *dummy = new ListNode(0);
+        dummy->next = head;
+        
+        ListNode *p = head;
+        ListNode *last_not_nine = dummy;
+        
+        while (p) {
+            if (p->val != 9) 
+                last_not_nine = p;
+            p = p->next;
+        }
+        
+        //add one
+        last_not_nine->val++;
+        //make elem after it to 0's
+        p = last_not_nine->next;
+        while (p) {
+            p->val = 0;
+            p = p->next;
+        }
+        
+        if (dummy->val == 1)
+            return dummy;
+        else
+            return dummy->next;
     }
 };
