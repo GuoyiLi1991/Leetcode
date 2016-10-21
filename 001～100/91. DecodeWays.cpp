@@ -33,7 +33,7 @@ public:
         dp[n] = 1;
         dp[n-1] = (s[n-1] != '0');
         
-        for (int i = n - 2; i >= 0; i--) {
+        for (int i = n - 2; i >= 0; i--) { //right->left
             if (s[i] == '0')
                 dp[i] = 0;
             else if (s[i] == '1' || (s[i] == '2' && s[i + 1] <= '6')) {
