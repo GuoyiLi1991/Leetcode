@@ -49,3 +49,38 @@ public:
         
     }
 };
+
+
+
+///// Further: print the idx of subarray (start, end)
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+        
+        int runningSum = nums[0]; 
+        int maxSum = nums[0]; //at least include one number
+        int maxStartIdx = 0;
+        int maxEndIdx = 0;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] > runningSum + nums[i]) {
+                runningSum = nums[i];
+                maxStartIdx = i; //update start
+            }
+            else
+                runningSum += nums[i];
+                
+            if (runningSum > maxSum) {
+                maxSum = runningSum; //update end
+                maxEndIdx = i;
+            }
+           
+        }
+        
+        cout << "(" << maxStartIdx << "," << maxEndIdx  << ")" <<endl;
+        return maxSum;
+        
+    }
+};
