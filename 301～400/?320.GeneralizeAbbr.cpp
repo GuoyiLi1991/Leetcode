@@ -44,7 +44,7 @@ class Solution {
             res += to_string(cnt);
         return res;
     }
-    
+
     void replace(vector<string>& res, string word) {
         int n = word.size();
         for (int i = 0; i < pow(2, n); i++) {
@@ -61,6 +61,33 @@ public:
         vector<string> res;
         int pos = 0;
         replace(res, word);
+        return res;
+    }
+};
+
+// Concise solution:
+class Solution {
+    string generate(const string& word, int mask) {
+        string output;
+        for (int i = 0; i < word.size();) {
+            if (((mask >> i) & 1 ) == 0) {
+                output += word[i++];
+            }
+            else {
+                int start = i;
+                while (i < word.size() && ((mask >> i) & 1))
+                    i++;
+                output += to_string(i - start);
+            }
+        }
+        return output;
+    }
+public:
+    vector<string> generateAbbreviations(string word) {
+        vector<string> res;
+        for (int mask = 0; mask < (1 << word.size()); mask++) {
+            res.push_back(generate(word, mask));
+        }
         return res;
     }
 };

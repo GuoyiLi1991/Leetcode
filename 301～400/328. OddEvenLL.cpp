@@ -1,11 +1,12 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+/*
+Given a singly linked list, group all odd nodes together 
+followed by the even nodes. 
+
+Please note here we are talking about the node number 
+and not the value in the nodes.
+*/
+
+// Sol1. Inplace
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
@@ -24,5 +25,37 @@ public:
         }
         
         return head;
+    }
+};
+
+// Sol2. Similar to 86. LinkedList partition
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (!head || !head->next)
+            return head;
+            
+        ListNode oddDummy(0), evenDummy(0);
+        ListNode *oddTail = &oddDummy;
+        ListNode *evenTail = &evenDummy;
+        
+        while (head) {
+            oddTail->next = head;
+            oddTail = head;
+            
+            head = head->next;
+            if (!head)
+                break;
+            evenTail->next = head;
+            evenTail = head;
+            
+            head = head->next;
+        }
+        
+        oddTail->next = evenDummy.next;
+        evenTail->next = NULL;
+        
+        return oddDummy.next;
     }
 };

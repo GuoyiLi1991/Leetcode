@@ -178,3 +178,117 @@ public:
         }
     }
 };
+
+
+class Node {
+public:
+    Node* prev;
+    Node* next;
+
+    int key;
+    int value;
+
+    Node() {}
+    Node(int k, int v) {
+        key = k;
+        value = v;
+    }
+};
+
+class LRUCache {
+    unordered_map<int, Node*> key_node_table;
+    Node *head; //the oldest
+    Node *tail; // the newest
+
+    int cap;
+
+    void appendTail(Node* node) {
+        node->next = tail;
+        node->prev = tail->prev;
+        tail->prev->next = node;
+        tail->prev = node;
+    }
+
+public:
+    LRUCache(int capacity) {
+        cap = capacity;
+        head = new Node(); //dummy node
+        tail = new Node(); //dummy node
+
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    int get(int key) {
+        if (key_node_table.count(key) == 0) //not found
+            return -1;
+        else { //touch the node, and return value with the ht
+            Node* node = key_node_table[key];
+            //remove node from the list
+            node->prev->next = node->next;
+            node->next->prev = node->prev;
+
+            appendTail(node);
+            return node->value;
+        }
+
+    }
+
+    void set(int key, int value) {
+        if (key_node_table.count(key)) { //found in the cache
+            Node* node = key_node_table[key];
+            node->value = value;
+            key_node_table[key] = node;
+
+            node->prev->next = node->next;
+            node->next->prev = node->prev;
+
+            appendTail(node);
+            return;
+        }
+        else { //not in the cache
+            if (key_node_table.size() == cap) { //if full, remove one
+                //remove head
+                Node* tmp = head->next;
+                head->next = head->next->next;
+                head->next->prev = head;
+                key_node_table.erase(tmp->key);
+            } 
+            //else if not full, skip remvoving
+
+            Node* node = new Node(key, value);
+            appendTail(node);
+            key_node_table[key] = node;
+        }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
