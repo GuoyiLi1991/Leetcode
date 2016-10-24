@@ -7,7 +7,7 @@
  * };
  */
 
- // Sol1: convert linked list to vector and check
+ /// Naively, convert linked list to vector and check
  // O(n) time and O(n) space
 class Solution {
     vector<int> ll2vec(ListNode* head) {
@@ -30,7 +30,7 @@ public:
 };
 
 /////////////////////////
-// Sol2. Reverse second half of the list 
+// Reverse second half of the list 
 // and compare with first half
 
 class Solution {
@@ -62,38 +62,6 @@ public:
             if (head->val != slow->val)
                 return false;
             head = head->next;
-            slow = slow->next;
-        }
-        return true;
-    }
-};
-
-
-////////////////////
-// Sol3. Using stack
-class Solution {
-public:
-    bool isPalindrome(ListNode* head) {
-        if (!head || !head->next) // 0 or 1 node only
-            return true; 
-        
-        stack<int> st;
-        ListNode* slow = head; //1, 2,3, 4...
-        ListNode* fast = head; //1, 3, 5, 7...
-        
-        while (fast && fast->next) {
-            st.push(slow->val);
-            slow = slow->next;
-            fast = fast->next->next;
-        } //now slow is the ((n + 1)/2)-th element
-        
-        if (fast) //odd length
-            slow = slow->next;
-        
-        while (slow) {
-            if (st.top() != slow->val)
-                return false;
-            st.pop();
             slow = slow->next;
         }
         return true;
