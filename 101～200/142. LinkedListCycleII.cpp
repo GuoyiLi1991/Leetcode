@@ -9,25 +9,27 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        if (!head)
-            return NULL;
-            
-        ListNode *fast = head, *slow = head;
-        while (fast->next && fast->next->next) {
+        ListNode *fast = head;
+        ListNode *slow = head;
+        
+        while (fast && fast->next) {
             fast = fast->next->next;
             slow = slow->next;
             
-            if (fast == slow) {
-                ListNode *tmp = head;
-                while (slow) {
-                    if (tmp == slow)
-                        return tmp;
-                    tmp = tmp->next;
-                    slow = slow->next;
-                }
-            }
+            if (fast == slow)
+                break;
         }
-        return NULL;
-    }
         
+        if (!(fast && fast->next)) //no cycle
+            return NULL;
+        
+        //has cycle, the second collision will be the entrance
+        fast = head;
+        while (fast != slow) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+        
+        return fast;
+    }
 };
