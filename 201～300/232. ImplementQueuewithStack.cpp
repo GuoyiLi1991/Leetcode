@@ -1,3 +1,6 @@
+/// Sol1. Using two stacks
+// Sol1-1: 
+// Push: O(n^2), others all O(1)
 class Queue {
     stack<int> st1, st2;
 public:
@@ -29,6 +32,48 @@ public:
         return st1.empty();
     }
 };
+
+// Sol1-2:
+// Push() & empty() O(1)
+// Pop() and peek() worst O(n), average O(1)
+class Queue {
+    stack<int> stOld;
+    stack<int> stNew;
+    
+public:
+    // Push element x to the back of queue.
+    void push(int x) {
+        stNew.push(x);
+    }
+
+    // Removes the element from in front of queue.
+    void pop(void) {
+        if (stOld.empty()) {
+            while (!stNew.empty()) {
+                stOld.push(stNew.top());
+                stNew.pop();
+            }
+        }
+        stOld.pop();
+    }
+
+    // Get the front element.
+    int peek(void) {
+        if (stOld.empty()) {
+            while (!stNew.empty()) {
+                stOld.push(stNew.top());
+                stNew.pop();
+            }
+        }
+        return stOld.top();
+    }
+
+    // Return whether the queue is empty.
+    bool empty(void) {
+        return stOld.empty() && stNew.empty();
+    }
+};
+
 
 
 /////////
