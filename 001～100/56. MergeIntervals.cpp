@@ -78,3 +78,41 @@ public:
     }
 };
 };
+
+
+
+
+
+
+
+
+// Sweaping line
+class Solution {
+public:
+    vector<Interval> merge(vector<Interval>& intervals) {
+        map<int, int> overlapping; //<time, number of intervals at this time>
+        
+        for (auto &interval : intervals) {
+            overlapping[interval.start] += 1;
+            overlapping[interval.end] -= 1;
+        }
+        
+        vector<Interval> res;
+        Interval newInterval;
+        int ongoing = 0;
+        for (auto &item: overlapping) {
+            if (ongoing == 0) //start point
+                newInterval.start = item.first;
+            
+            ongoing += item.second; //+1 if start, -1 if end
+            
+            if (ongoing == 0) { //end point
+                newInterval.end = item.first;
+                res.push_back(newInterval);
+            }
+        }
+        
+        return res;
+    }
+};
+

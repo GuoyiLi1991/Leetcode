@@ -99,3 +99,27 @@ public:
 
     }
 };
+
+
+
+//sweap line
+class Solution {
+public:
+    int minMeetingRooms(vector<Interval>& intervals) {
+        vector<pair<int, int>> times;
+        for (auto &item : intervals) {
+            times.push_back({item.start, 1});
+            times.push_back({item.end, -1});
+        }
+        sort(times.begin(), times.end());
+        
+        int occupy = 0;
+        int maxRooms = 0;
+        for (auto &item : times) {
+            occupy += item.second;
+            maxRooms = max(occupy, maxRooms);
+        }
+        
+        return maxRooms;
+    }
+};

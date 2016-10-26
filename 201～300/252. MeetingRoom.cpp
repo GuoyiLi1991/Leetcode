@@ -84,3 +84,25 @@ public:
         return sol3(intervals);
     }
 };
+
+
+//////// Sweaping lines
+class Solution {
+public:
+    bool canAttendMeetings(vector<Interval>& intervals) {
+        vector<pair<int, int>> times;
+        for (auto &item : intervals) {
+            times.push_back({item.start, 1});
+            times.push_back({item.end, -1});
+        }
+        sort(times.begin(), times.end());
+        
+        int occupy = 0;
+        for (auto &item : times) {
+            occupy += item.second;
+            if (occupy > 1) return false;
+        }
+        
+        return true;
+    }
+};

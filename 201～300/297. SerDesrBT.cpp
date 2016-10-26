@@ -8,43 +8,43 @@
  * };
  */
 class Codec {
-    TreeNode* str2Node(string& data){
-        int pos = data.find(',');
-        string token = data.substr(0, pos);
-        TreeNode* node = new TreeNode(stoi(token));
-        data = data.substr(pos+1);
-        
-        return node;
-    }
-    TreeNode* mydeserialize(string& data)
-    {
-        TreeNode* root = nullptr;
-        if (data[0] == '#') //empty node
-        {
-            if (data.size() > 1) //#,...
-                data = data.substr(2);  
-            return nullptr;
+    void dfs(TreeNode*root, string &s) { //preorder traversal
+        if (!root) {
+            s += "# ";
+            return;
         }
-        else //num{,num}
-        {
-            root = str2Node(data);
-            root->left = mydeserialize(data);
-            root->right = mydeserialize(data);
-        }
-        return root;
+        else
+            s += to_string(root->val) + ' ';
+        dfs(root->left, s);
+        dfs(root->right, s);
     }
 public:
 
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        if (!root) return "#";
-        int num = root->val;
-        return to_string(num) + "," + serialize(root->left) + "," + serialize(root->right);
+        string output;
+        dfs(root, output);
+        return output;
     }
 
     // Decodes your encoded data to tree.
+    TreeNode* helper(stringstream &in) {
+        TreeNode *root;
+        
+        string token;
+        in >> token; 
+        
+        if (token == "#") return NULL;
+
+        root = new TreeNode(stoi(token));
+        root->left = helper(in);
+        root->right = helper(in);
+
+        return root;
+    }
     TreeNode* deserialize(string data) {
-        return mydeserialize(data);
+        stringstream ss(data);
+        return helper(ss);
     }
 };
 
