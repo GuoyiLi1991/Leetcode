@@ -72,3 +72,74 @@ public:
         return res;
     }
 };
+
+
+
+////////
+// BFS
+class Solution {
+public:
+    int countComponents(int n, vector<pair<int, int>>& edges) {
+        vector<vector<int>> g(n, vector<int>());
+        for (auto &e : edges) {
+            g[e.first].push_back(e.second);
+            g[e.second].push_back(e.first);
+        }
+        
+        int res = 0;
+        vector<bool> visited(n, false);
+        for (int i = 0; i < n; i++) {
+            if (visited[i]) continue;
+            
+            res++;
+            
+            queue<int> q;
+            q.push(i);
+            while (!q.empty()) {
+                int tmp = q.front();
+                q.pop();
+                
+                visited[tmp] = true;
+                for (int nei : g[tmp]) {
+                    if (!visited[nei])
+                        q.push(nei);
+                }
+                    
+            }
+        }
+        
+        return res;
+    }
+};
+
+//////////
+// DFS
+class Solution {
+    void dfs(vector<vector<int>>& g, vector<bool>& visited, int cur) {
+        if (visited[cur]) return;
+        
+        visited[cur] = true;
+        for (int i = 0; i < g[cur].size(); i++) {
+            dfs(g, visited, g[cur][i]);
+        }
+    }
+public:
+    int countComponents(int n, vector<pair<int, int>>& edges) {
+        vector<vector<int>> g(n, vector<int>());
+        for (auto &e : edges) {
+            g[e.first].push_back(e.second);
+            g[e.second].push_back(e.first);
+        }
+        
+        int res = 0;
+        vector<bool> visited(n, false);
+        for (int i = 0; i < n; i++) {
+            if (visited[i]) continue;
+            
+            res++;
+            dfs(g, visited, i);
+        }
+        
+        return res;
+    }
+};

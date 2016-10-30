@@ -50,6 +50,36 @@ public:
  * int param_3 = obj.top();
  * int param_4 = obj.getMin();
  */
+// Same with having two stacks underneath: values and mins
+class MinStack {
+    stack<int> values;
+    stack<int> mins;
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+    }
+    
+    void push(int x) {
+        values.push(x);
+        if (mins.empty())
+            mins.push(x);
+        else
+            mins.push(min(x, mins.top()));
+    }
+    
+    void pop() {
+        values.pop();
+        mins.pop();
+    }
+    
+    int top() {
+        return values.top();
+    }
+    
+    int getMin() {
+        return mins.top();
+    }
+};
 
 
 /////////
@@ -73,7 +103,7 @@ public:
     }
     
     void pop() {
-        if (mainStack.top() == getMin())
+        if (mainStack.top() == minStack.top())
             minStack.pop();
         mainStack.pop();
     }
