@@ -6,6 +6,7 @@
  *     UndirectedGraphNode(int x) : label(x) {};
  * };
  */
+ // BFS
 class Solution {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
@@ -13,7 +14,7 @@ public:
         
         UndirectedGraphNode *copy = new UndirectedGraphNode(node->label);
         queue< UndirectedGraphNode* > q;
-        unordered_map< UndirectedGraphNode*, UndirectedGraphNode* > ht;
+        unordered_map< UndirectedGraphNode*, UndirectedGraphNode* > ht; //to record if copied
         q.push(node);
         ht[node] = copy;
         
@@ -24,7 +25,7 @@ public:
             q.pop();
             
             for (auto node : original->neighbors) {
-               if (ht.count(node) == 0) {
+               if (ht.count(node) == 0) { //haven't copied
                     q.push(node);
                     ht[node] = new UndirectedGraphNode(node->label);
                 }

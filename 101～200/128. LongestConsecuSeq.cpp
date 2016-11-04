@@ -32,30 +32,28 @@ class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
         int n = nums.size();
-        if (n == 0 || n == 1) return n;
+        if (n < 2) return n;
         
-        //general case
-        int longestLen = 1;
-        unordered_set<int> myset; 
+        unordered_set<int> numset(nums.begin(), nums.end());
+        int maxLen = 1; //at least one
         
-        //make set
-        for (int val : nums)
-            myset.insert(val);
-            
-        for (int val : myset) {
-            int left = val - 1, right = val + 1;
-            while (myset.count(left))
-                myset.erase(left--);
-                
-            while (myset.count(right))
-                myset.erase(right++);
-                
-            longestLen = max(right - left - 1, longestLen);
+        for (int val : numset) {
+            int curLen = 1;
+            int l = val - 1, r = val + 1;
+            while (numset.count(l)) {
+                numset.erase(l--);
+                curLen++;
+            }
+            while (numset.count(r)) {
+                numset.erase(r++);
+                curLen++;
+            }
+            maxLen = max(maxLen, curLen);
         }
-        return longestLen;
+        
+        return maxLen;
     }
 };
-
 // Sol3. Union find
 class Solution {
     vector<int> id;
